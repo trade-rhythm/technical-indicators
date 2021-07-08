@@ -1,7 +1,9 @@
 # Technical Indicators
+
 This is a work in progress. Stay tuned!
 
 ## Roadmap
+
 - [x] [EMA](https://www.investopedia.com/terms/e/ema.asp)
 - [x] [SMA](https://www.investopedia.com/terms/s/sma.asp)
 - [ ] ADL
