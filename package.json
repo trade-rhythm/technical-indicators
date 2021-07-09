@@ -2,10 +2,10 @@
   "name": "@trade-rhythm/technical-indicators",
   "version": "0.1.1",
   "description": "Technical indicators for algo trading",
-  "main": "/dist/index.js",
-  "types": "/dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "build:types": "tsc -d",
+    "build:types": "tsc -d --emitDeclarationOnly",
     "lint": "eslint --fix",
     "format": "prettier --write --ignore-unknown .",
     "check": "tsc -p tsconfig.json --noEmit",

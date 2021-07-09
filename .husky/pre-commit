@@ -1,5 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-tsc -d
+npm run build:types
+npm run build
 npx lint-staged
