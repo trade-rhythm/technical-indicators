@@ -1,5 +1,5 @@
-import Window from '../core/window';
-import type { WindowArgs } from '../core/window';
+import Window from "../core/window";
+import type { WindowArgs } from "../core/window";
 
 export default class SMA {
   period: number;
@@ -9,8 +9,8 @@ export default class SMA {
   constructor(
     period: number,
     window: Window<number> = new Window(period),
-    current: number = 0.0,
-    isNew: boolean = true,
+    current = 0.0,
+    isNew = true
   ) {
     this.period = period;
     this.window = window;
@@ -30,7 +30,7 @@ export default class SMA {
   }
   toJSON() {
     return {
-      $type: 'finance.tr.MA',
+      $type: "finance.tr.MA",
       period: this.period,
       window: this.window,
       current: this.current,
@@ -47,7 +47,7 @@ export default class SMA {
     window: WindowArgs<number>;
     current: number;
     isNew: boolean;
-  }): EMA {
-    return new MA(period, Window.from(window), current, isNew);
+  }): SMA {
+    return new SMA(period, Window.from(window), current, isNew);
   }
 }

@@ -4,17 +4,34 @@
   "description": "Technical indicators for algo trading",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint --fix",
+    "check": "tsc -p tsconfig.json --noEmit",
     "build": "esbuild src/index.ts --bundle --outfile=dist/index.js --format=esm",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "nicksrandall",
   "license": "MIT",
-  "dependencies": {},
+  "lint-staged": {
+    "**/*.ts": [
+      "eslint --fix",
+      "jest --bail --findRelatedTests"
+    ],
+    "**/*": "prettier --write --ignore-unknown"
+  },
   "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "@typescript-eslint/eslint-plugin": "^4.28.2",
+    "@typescript-eslint/parser": "^4.28.2",
     "esbuild": "^0.12.15",
     "esbuild-jest": "^0.5.0",
+    "eslint": "^7.30.0",
+    "eslint-config-prettier": "^8.3.0",
+    "husky": "^7.0.1",
     "jest": "^27.0.6",
+    "lint-staged": "^11.0.0",
+    "prettier": "^2.3.2",
     "ts-node": "^10.0.0"
   }
 }

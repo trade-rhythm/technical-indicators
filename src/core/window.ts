@@ -1,7 +1,7 @@
 export type WindowArgs<T> = {
-    size: number;
-    index: number;
-    array: T[];
+  size: number;
+  index: number;
+  array: T[];
 };
 
 // Window is a circular buffer
@@ -25,17 +25,13 @@ export default class Window<T = number> {
   }
   toJSON() {
     return {
-      $type: 'finance.tr.Window',
+      $type: "finance.tr.Window",
       size: this.size,
       index: this.index,
       array: this.#array,
     };
   }
-  static from({
-    size,
-    index,
-    array
-  }: WindowArgs<T>): Window {
+  static from<T = number>({ size, index, array }: WindowArgs<T>): Window<T> {
     return new Window(size, index, array);
   }
 }

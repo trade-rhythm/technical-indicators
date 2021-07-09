@@ -6,8 +6,8 @@ export default class EMA {
   constructor(
     period: number,
     k: number = 2 / (period + 1),
-    current: number = 0.0,
-    isNew: boolean = true,
+    current = 0.0,
+    isNew = true
   ) {
     this.period = period;
     this.k = k;
@@ -25,7 +25,7 @@ export default class EMA {
   }
   toJSON() {
     return {
-      $type: 'finance.tr.EMA',
+      $type: "finance.tr.EMA",
       period: this.period,
       k: this.k,
       current: this.current,

@@ -6,7 +6,5 @@
       "type": "integer"
     }
   },
-  "required": [
-    "period"
-  ]
+  "required": ["period"]
 }
