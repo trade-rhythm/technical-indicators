@@ -1,5 +1,5 @@
 import SMA from "./index";
-import Window from "../core/window";
+import Window from "../Window";
 
 test("SMA calculates correctly", () => {
   const ma = new SMA(3);

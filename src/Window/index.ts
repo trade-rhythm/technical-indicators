@@ -1,3 +1,5 @@
+import type { JSONDef } from "../types";
+
 export type WindowArgs<T> = {
   size: number;
   index: number;
@@ -14,16 +16,26 @@ export default class Window<T = number> {
     this.index = 0;
     this.#array = array;
   }
-  init(value: T) {
+  init(value: T): void {
     this.#array.fill(value);
   }
-  push(v: T) {
+  get(idx: number): T {
+    return this.#array[(this.index + idx) % this.size];
+  }
+  values(): T[] {
+    const out: T[] = [];
+    for (let i = this.index; i < this.index + this.size; i++) {
+      out.push(this.#array[i % this.size]);
+    }
+    return out;
+  }
+  push(v: T): T {
     const oldValue = this.#array[this.index];
     this.#array[this.index] = v;
     this.index = this.index === this.size - 1 ? 0 : this.index + 1;
     return oldValue;
   }
-  toJSON() {
+  toJSON(): JSONDef {
     return {
       $type: "finance.tr.Window",
       size: this.size,

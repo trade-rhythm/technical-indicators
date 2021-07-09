@@ -2,9 +2,10 @@
   "name": "@trade-rhythm/technical-indicators",
   "version": "0.0.1",
   "description": "Technical indicators for algo trading",
-  "main": "index.js",
+  "main": "/dist/index.js",
   "scripts": {
     "lint": "eslint --fix",
+    "format": "prettier --write --ignore-unknown .",
     "check": "tsc -p tsconfig.json --noEmit",
     "build": "esbuild src/index.ts --bundle --outfile=dist/index.js --format=esm",
     "test": "jest",

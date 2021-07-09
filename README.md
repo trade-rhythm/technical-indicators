@@ -6,6 +6,7 @@ This is a work in progress. Stay tuned!
 
 - [x] [EMA](https://www.investopedia.com/terms/e/ema.asp)
 - [x] [SMA](https://www.investopedia.com/terms/s/sma.asp)
+- [x] [Cross](https://www.investopedia.com/terms/c/crossover.asp)
 - [ ] ADL
 - [ ] ADX
 - [ ] AO
