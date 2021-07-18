@@ -1,6 +1,6 @@
 {
   "name": "@trade-rhythm/technical-indicators",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Technical indicators for algo trading",
   "main": "./dist/index.js",
   "scripts": {
