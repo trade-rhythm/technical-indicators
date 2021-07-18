@@ -13,7 +13,7 @@ export default class Window<T = number> {
   #array: T[];
   constructor(size: number, index = 0, array = new Array(size)) {
     this.size = size;
-    this.index = 0;
+    this.index = index;
     this.#array = array;
   }
   init(value: T): void {
