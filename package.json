@@ -4,7 +4,7 @@
   "description": "Technical indicators for algo trading",
   "main": "./dist/index.js",
   "scripts": {
-    "build:types": "tsc -d --emitDeclarationOnly",
+    "build:types": "tsc -d --emitDeclarationOnly --outfile dist/types.d.ts",
     "lint": "eslint --fix",
     "format": "prettier --write --ignore-unknown .",
     "check": "tsc -p tsconfig.json --noEmit",
