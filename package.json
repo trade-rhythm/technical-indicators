@@ -3,7 +3,6 @@
   "version": "0.1.3",
   "description": "Technical indicators for algo trading",
   "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "scripts": {
     "build:types": "tsc -d --emitDeclarationOnly",
     "lint": "eslint --fix",
