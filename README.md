@@ -7,6 +7,8 @@ This is a work in progress. Stay tuned!
 - [x] [EMA](https://www.investopedia.com/terms/e/ema.asp)
 - [x] [SMA](https://www.investopedia.com/terms/s/sma.asp)
 - [x] [Cross](https://www.investopedia.com/terms/c/crossover.asp)
+- [x] MACD
+- [x] RSI
 - [ ] ADL
 - [ ] ADX
 - [ ] AO
@@ -15,11 +17,9 @@ This is a work in progress. Stay tuned!
 - [ ] FI
 - [ ] KST
 - [ ] MFI
-- [ ] MACD
 - [ ] OBV
 - [ ] PSAR
 - [ ] ROC
-- [ ] RSI
 - [ ] KD
 - [ ] StochRSI
 - [ ] TRIX

@@ -1,0 +1,19 @@
+import
+{{name}}
+from "./index"; test("{{name}}
+calculates correctly", () => { const
+{{lowerCase name}}
+= new
+{{name}}(); [ [1, 1], ].forEach(([val, result]) => { expect({{lowerCase
+  name
+}}.next(val)).toBe(result); }); }); test("{{name}}
+serializes/deserializes correctly", () => { const
+{{lowerCase name}}
+= new
+{{name}}();
+{{lowerCase name}}.next(1); const json = JSON.stringify({{lowerCase name}});
+const new{{name}}
+=
+{{name}}.from(JSON.parse(json)); expect(new{{name}}).toEqual({{lowerCase
+  name
+}}); });

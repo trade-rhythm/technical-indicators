@@ -13,6 +13,14 @@ build({
   },
 });
 
+build({
+  entry: "src/main.ts",
+  outfile: "dist/index.cjs",
+  bundle: true,
+  format: "cjs",
+  minify: false,
+});
+
 function generateTypeDefs(tsconfig, entryfiles, outdir) {
   const filenames = Array.from(
     new Set(
