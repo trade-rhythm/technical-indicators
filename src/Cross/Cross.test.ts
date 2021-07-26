@@ -30,5 +30,5 @@ test("Cross serializes/deserializes correctly", () => {
   cross.over(5, 10);
   const json = JSON.stringify(cross);
   const newCross = Cross.from(JSON.parse(json));
-  expect(newCross.isOver).toBe(cross.isOver);
+  expect(newCross).toEqual(cross);
 });

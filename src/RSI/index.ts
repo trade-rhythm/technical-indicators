@@ -1,12 +1,13 @@
 import Window from "../Window";
 import type { WindowArgs } from "../Window";
-import type { JSONDef } from "../types";
+import { JSONDef, Indicator } from "../types";
 
-export default class RSI {
+export default class RSI extends Indicator {
   period: number;
   index: number;
   window: Window;
   constructor(period: number, index = 0, window = new Window(period + 1)) {
+    super();
     this.period = period;
     this.index = index;
     this.window = window;
@@ -34,8 +35,7 @@ export default class RSI {
   toJSON(): JSONDef {
     return {
       $type: "finance.tr.RSI",
-      period: this.period,
-      window: this.window,
+      ...this
     };
   }
   static from({

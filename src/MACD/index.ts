@@ -1,11 +1,11 @@
 import EMA from "../EMA";
 import type { EMAArgs } from "../EMA";
-import type { JSONDef } from "../types";
+import { JSONDef, Indicator, INum } from "../types";
 
-export default class MACD {
+export default class MACD extends Indicator {
   fast: EMA;
   slow: EMA;
-  current: number | null;
+  current: INum | null;
   index: number;
   constructor(
     fast: number | EMA = 12,
@@ -13,10 +13,11 @@ export default class MACD {
     index = 0,
     current: number | null = null
   ) {
+    super();
     this.fast = typeof fast === "number" ? new EMA(fast) : fast;
     this.slow = typeof slow === "number" ? new EMA(slow) : slow;
     this.index = index;
-    this.current = current;
+    this.current = current === null ? null : this.new(current);
   }
   next(value: number): number | null {
     this.slow.next(value);
@@ -26,10 +27,13 @@ export default class MACD {
     if (this.index < this.slow.period - 1) {
       this.current = null;
     } else {
-      this.current = this.fast.current - this.slow.current;
+      this.current = this.fast.current.sub(this.slow.current);
     }
     this.index++;
-    return this.current;
+    return this.#getCurrent();
+  }
+  #getCurrent(): number {
+    return this.current === null ? null : this.current.valueOf();
   }
   toJSON(): JSONDef {
     return {
@@ -37,14 +41,14 @@ export default class MACD {
       fast: this.fast,
       slow: this.slow,
       index: this.index,
-      current: this.current,
+      current: this.#getCurrent(),
     };
   }
   static from({
     fast,
     slow,
     index,
-    current,
+    current
   }: {
     fast: EMAArgs;
     slow: EMAArgs;

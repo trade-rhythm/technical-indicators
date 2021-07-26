@@ -1,8 +1,8 @@
 import Window from "../Window";
 import type { WindowArgs } from "../Window";
-import type { JSONDef } from "../types";
+import { JSONDef, Indicator } from "../types";
 
-export default class SMA {
+export default class SMA extends Indicator {
   period: number;
   window: Window<number>;
   current: number;
@@ -13,6 +13,7 @@ export default class SMA {
     current = 0.0,
     isNew = true
   ) {
+    super();
     this.period = period;
     this.window = window;
     this.current = current;
@@ -32,10 +33,7 @@ export default class SMA {
   toJSON(): JSONDef {
     return {
       $type: "finance.tr.MA",
-      period: this.period,
-      window: this.window,
-      current: this.current,
-      isNew: this.isNew,
+      ...this,
     };
   }
   static from({

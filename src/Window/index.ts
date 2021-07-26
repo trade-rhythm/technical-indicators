@@ -1,4 +1,4 @@
-import type { JSONDef } from "../types";
+import type { JSONDef, Serializable } from "../types";
 
 export type WindowArgs<T> = {
   size: number;
@@ -7,7 +7,7 @@ export type WindowArgs<T> = {
 };
 
 // Window is a circular buffer
-export default class Window<T = number> {
+export default class Window<T = number> implements Serializable {
   index: number;
   size: number;
   #array: T[];
@@ -40,7 +40,7 @@ export default class Window<T = number> {
       $type: "finance.tr.Window",
       size: this.size,
       index: this.index,
-      array: this.#array,
+      array: this.#array
     };
   }
   static from<T = number>({ size, index, array }: WindowArgs<T>): Window<T> {

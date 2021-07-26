@@ -4,3 +4,6 @@ export { default as Window } from "./Window";
 export { default as Cross } from "./Cross";
 export { default as MACD } from "./MACD";
 export { default as RSI } from "./RSI";
+export { default as TR } from './TR';
+export { default as Fast } from './Fast';
+export { default as Big } from './Big';

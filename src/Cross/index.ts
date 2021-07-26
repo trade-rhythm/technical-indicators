@@ -1,6 +1,6 @@
-import type { JSONDef } from "../types";
+import type { JSONDef, Serializable } from "../types";
 
-export default class Cross {
+export default class Cross implements Serializable {
   isOver?: boolean;
   constructor(isOver?: boolean) {
     this.isOver = isOver;

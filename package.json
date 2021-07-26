@@ -5,6 +5,7 @@
   "main": "./dist/index.js",
   "types": "./dist/main.d.ts",
   "scripts": {
+    "plop": "plop",
     "lint": "eslint --fix",
     "format": "prettier --write --ignore-unknown .",
     "check": "tsc -p tsconfig.json --noEmit",
@@ -26,6 +27,8 @@
     "@types/jest": "^26.0.24",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
+    "benchmark": "^2.1.4",
+    "dts-bundle-generator": "^5.9.0",
     "esbuild-jest": "^0.5.0",
     "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.3.0",
@@ -33,7 +36,13 @@
     "husky": "^7.0.1",
     "jest": "^27.0.6",
     "lint-staged": "^11.0.0",
+    "lodash": "^4.17.21",
+    "microtime": "^3.0.0",
+    "plop": "^2.7.4",
     "prettier": "^2.3.2",
     "ts-node": "^10.0.0"
+  },
+  "dependencies": {
+    "bigfloat-esnext": "^3.0.1"
   }
 }

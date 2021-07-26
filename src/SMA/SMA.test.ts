@@ -17,8 +17,6 @@ test("SMA serializes/deserializes correctly", () => {
   ma.next(11.3);
   ma.next(10.4);
   const json = JSON.stringify(ma);
-  const newMa = SMA.from(JSON.parse(json));
-  expect(ma.period).toBe(newMa.period);
-  expect(ma.window instanceof Window).toBe(true);
-  expect(ma.current).toBe(newMa.current);
+  const newMA = SMA.from(JSON.parse(json));
+  expect(newMA).toEqual(ma);
 });
