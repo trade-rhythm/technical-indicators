@@ -8,7 +8,7 @@ export type WindowArgs<T> = {
 };
 
 // Window is a circular buffer
-export default class Window<T = number> implements Serializable {
+export default class Window<T = number> implements Serializable<WindowArgs<T>> {
   index: number;
   size: number;
   #array: T[];
@@ -47,7 +47,7 @@ export default class Window<T = number> implements Serializable {
     this.index = this.index === this.size - 1 ? 0 : this.index + 1;
     return oldValue;
   }
-  toJSON(): JSONDef {
+  toJSON(): JSONDef<WindowArgs<T>> {
     return {
       $type: "finance.tr.Window",
       size: this.size,

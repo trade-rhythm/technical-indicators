@@ -10,12 +10,12 @@ export interface SDArgs {
   window: WindowArgs<number>;
 }
 
-export default class SD implements Indicator {
+export default class SD implements Indicator<SDArgs> {
   period: number;
   count: number;
   m: number;
   m2: number;
-  window: Window;
+  window: Window<number>;
   constructor(
     period = 9,
     count = 0,
@@ -59,14 +59,14 @@ export default class SD implements Indicator {
 
     return Math.sqrt(this.m2 / this.count);
   }
-  toJSON(): JSONDef {
+  toJSON(): JSONDef<SDArgs> {
     return {
       $type: "finance.tr.SD",
       period: this.period,
       count: this.count,
       m: this.m,
       m2: this.m2,
-      window: this.window,
+      window: this.window.toJSON(),
     };
   }
   static from({ period, count, m, m2, window }: SDArgs): SD {

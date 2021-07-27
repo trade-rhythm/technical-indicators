@@ -7,7 +7,7 @@ export interface ATRArgs {
   tr: TRArgs;
 }
 
-export default class ATR implements Indicator {
+export default class ATR implements Indicator<ATRArgs> {
   ema: EMA;
   tr: TR;
   constructor(ema: number | EMA = 14, tr: TR = new TR()) {
@@ -20,7 +20,7 @@ export default class ATR implements Indicator {
   next(value: number): number {
     return this.ema.next(this.tr.next(value));
   }
-  toJSON(): JSONDef {
+  toJSON(): JSONDef<ATRArgs> {
     return {
       $type: "finance.tr.ATR",
       ema: this.ema,

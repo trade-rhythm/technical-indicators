@@ -2,7 +2,13 @@ import Window from "../Window";
 import type { WindowArgs } from "../Window";
 import type { JSONDef, Indicator } from "../types";
 
-export default class SMA implements Indicator {
+export interface SMAArgs {
+  period: number;
+  window: WindowArgs<number>;
+  current: number;
+}
+
+export default class SMA implements Indicator<SMAArgs> {
   period: number;
   window: Window<number>;
   current: number;
@@ -28,23 +34,15 @@ export default class SMA implements Indicator {
     }
     return this.current;
   }
-  toJSON(): JSONDef {
+  toJSON(): JSONDef<SMAArgs> {
     return {
       $type: "finance.tr.MA",
       period: this.period,
-      window: this.window,
+      window: this.window.toJSON(),
       current: this.current,
     };
   }
-  static from({
-    period,
-    window,
-    current,
-  }: {
-    period: number;
-    window: WindowArgs<number>;
-    current: number;
-  }): SMA {
+  static from({ period, window, current }: SMAArgs): SMA {
     return new SMA(period, Window.from(window), current);
   }
 }

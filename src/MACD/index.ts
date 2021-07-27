@@ -2,7 +2,14 @@ import EMA from "../EMA";
 import type { EMAArgs } from "../EMA";
 import type { JSONDef, Indicator } from "../types";
 
-export default class MACD implements Indicator {
+export interface MACDArgs {
+  fast: EMAArgs;
+  slow: EMAArgs;
+  index: number;
+  current: number;
+}
+
+export default class MACD implements Indicator<MACDArgs> {
   fast: EMA;
   slow: EMA;
   current: number | null;
@@ -34,7 +41,7 @@ export default class MACD implements Indicator {
     this.index++;
     return this.current;
   }
-  toJSON(): JSONDef {
+  toJSON(): JSONDef<MACDArgs> {
     return {
       $type: "finance.tr.MACD",
       fast: this.fast,
@@ -43,17 +50,7 @@ export default class MACD implements Indicator {
       current: this.current,
     };
   }
-  static from({
-    fast,
-    slow,
-    index,
-    current,
-  }: {
-    fast: EMAArgs;
-    slow: EMAArgs;
-    index: number;
-    current: number;
-  }): MACD {
+  static from({ fast, slow, index, current }: MACDArgs): MACD {
     return new MACD(EMA.from(fast), EMA.from(slow), index, current);
   }
 }

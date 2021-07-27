@@ -21,7 +21,7 @@
       "eslint --fix",
       "jest --bail --findRelatedTests"
     ],
-    "**/*": "prettier --write --ignore-unknown"
+    "**/*.[!hbs]*": "prettier --write --ignore-unknown"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.14.8",

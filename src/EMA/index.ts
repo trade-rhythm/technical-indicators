@@ -7,7 +7,7 @@ export interface EMAArgs {
   index: number;
 }
 
-export default class EMA implements Indicator {
+export default class EMA implements Indicator<EMAArgs> {
   period: number;
   k: number;
   current: number;
@@ -38,7 +38,7 @@ export default class EMA implements Indicator {
     }
     return this.current;
   }
-  toJSON(): JSONDef {
+  toJSON(): JSONDef<EMAArgs> {
     return {
       $type: "finance.tr.EMA",
       period: this.period,

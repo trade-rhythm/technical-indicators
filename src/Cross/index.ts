@@ -1,7 +1,11 @@
 import { gt, lt, eq } from "../utils";
 import type { JSONDef, Serializable } from "../types";
 
-export default class Cross implements Serializable {
+export interface CrossArgs {
+  isOver: boolean;
+}
+
+export default class Cross implements Serializable<CrossArgs> {
   isOver?: boolean;
   constructor(isOver?: boolean) {
     this.isOver = isOver;
@@ -44,13 +48,13 @@ export default class Cross implements Serializable {
     }
     return false;
   }
-  toJSON(): JSONDef {
+  toJSON(): JSONDef<CrossArgs> {
     return {
       $type: "finance.crisp.Cross",
       isOver: this.isOver,
     };
   }
-  static from({ isOver }: { isOver: boolean }): Cross {
+  static from({ isOver }: CrossArgs): Cross {
     return new Cross(isOver);
   }
 }

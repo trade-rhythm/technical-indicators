@@ -4,7 +4,7 @@ export interface TRArgs {
   prev: number;
 }
 
-export default class TR implements Indicator {
+export default class TR implements Indicator<TRArgs> {
   prev: number | null;
   constructor(prev: number | null = null) {
     this.prev = typeof prev === "number" ? prev : null;
@@ -20,7 +20,7 @@ export default class TR implements Indicator {
     }
     return 0;
   }
-  toJSON(): JSONDef {
+  toJSON(): JSONDef<TRArgs> {
     return { $type: "finance.tr.TR", prev: this.prev };
   }
   static from({ prev }: TRArgs): TR {

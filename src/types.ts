@@ -1,13 +1,12 @@
-export interface JSONDef {
+export type JSONDef<T = Record<string, unknown>> = T & {
   $type: string;
-  [key: string]: unknown;
-}
+};
 
-export interface Serializable {
-  toJSON(): JSONDef;
+export interface Serializable<T> {
+  toJSON(): JSONDef<T>;
   display(value: string): string;
 }
 
-export interface Indicator extends Serializable {
-  next(v: number): number | null;
+export interface Indicator<T, V = number> extends Serializable<T> {
+  next(v: number): V | null;
 }
