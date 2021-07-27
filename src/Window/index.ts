@@ -49,13 +49,14 @@ export default class Window<T = number> implements Serializable<WindowArgs<T>> {
   }
   toJSON(): JSONDef<WindowArgs<T>> {
     return {
-      $type: "finance.tr.Window",
+      $type: Window.key,
       size: this.size,
       index: this.index,
       array: this.#array,
       needsInit: this.needsInit,
     };
   }
+  static key = "finance.tr.Window";
   static from<T = number>({
     size,
     index,

@@ -1,53 +1,48 @@
-import type { JSONDef, Indicator } from "../types";
+import type { JSONDef, Indicator, Bar } from "../types";
 
 export interface EMAArgs {
   period: number;
   k: number;
   current: number;
-  index: number;
 }
 
 export default class EMA implements Indicator<EMAArgs> {
   period: number;
   k: number;
-  current: number;
-  index: number;
+  current: number | null;
   constructor(
     period: number,
     k: number = 2 / (period + 1),
-    current = 0.0,
-    index = 0
+    current: number | null = null
   ) {
     this.period = period;
     this.k = k;
     this.current = current;
-    this.index = index;
   }
   display(value: string): string {
     return `EMA(${this.period}, ${value})`;
   }
   next(value: number): number {
-    this.index++;
-    if (this.index < this.period) {
-      this.current += value;
-      return this.current / this.index;
-    } else if (this.index === this.period) {
-      this.current = (this.current + value) / this.period;
+    if (this.current === null) {
+      this.current = value;
     } else {
-      this.current = (value - this.current) * this.k + this.current;
+      this.current = this.k * value + (1 - this.k) * this.current;
     }
     return this.current;
   }
+  nextBar(bar: Bar): number {
+    return this.next(bar.close);
+  }
   toJSON(): JSONDef<EMAArgs> {
     return {
-      $type: "finance.tr.EMA",
+      $type: EMA.key,
       period: this.period,
       k: this.k,
-      current: this.current,
-      index: this.index,
+      current: this.current
     };
   }
-  static from({ period, k, current, index }: EMAArgs): EMA {
-    return new EMA(period, k, current, index);
+  static key = "finance.tr.EMA";
+  static from({ period, k, current }: EMAArgs): EMA {
+    return new EMA(period, k, current);
   }
 }

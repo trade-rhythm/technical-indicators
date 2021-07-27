@@ -1,7 +1,7 @@
 import Window from "../Window";
 import { lt } from "../utils";
 import type { WindowArgs } from "../Window";
-import type { JSONDef, Indicator } from "../types";
+import type { JSONDef, Indicator, Bar } from "../types";
 
 export interface RSIArgs {
   period: number;
@@ -41,14 +41,18 @@ export default class RSI implements Indicator<RSIArgs> {
     }
     return 100 - 100 / (1 + gain / this.period / (loss / this.period));
   }
+  nextBar(bar: Bar): number {
+    return this.next(bar.close);
+  }
   toJSON(): JSONDef<RSIArgs> {
     return {
-      $type: "finance.tr.RSI",
+      $type: RSI.key,
       period: this.period,
       index: this.index,
       window: this.window.toJSON(),
     };
   }
+  static key = "finance.tr.RSI";
   static from({ period, index, window }: RSIArgs): RSI {
     return new RSI(period, index, Window.from(window));
   }

@@ -1,17 +1,14 @@
 import EMA from "./index";
 
 test("EMA calculates correctly", () => {
-  const ema = new EMA(6);
+  const ema = new EMA(3);
   [
-    [1, 1],
-    [2, 1.5],
-    [3, 2],
-    [4, 2.5],
-    [5, 3],
-    [6, 3.5],
-    [10, 5.357142857142857],
+    [2, 2],
+    [5, 3.5],
+    [1, 2.25],
+    [6.25, 4.25],
   ].forEach(([val, result]) => {
-    expect(ema.next(val)).toBe(result);
+    expect(+ema.next(val).toFixed(2)).toBe(result);
   });
 });
 

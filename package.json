@@ -2,7 +2,9 @@
   "name": "@trade-rhythm/technical-indicators",
   "version": "0.1.9",
   "description": "Technical indicators for algo trading",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "unpkg": "./dist/index.min.js",
   "types": "./dist/main.d.ts",
   "scripts": {
     "plop": "plop",

@@ -17,8 +17,6 @@ build({
   async onEnd(config) {
     const dtsFilesOutdir = dirname(config.outfile);
     generateTypeDefs(tsconfig(config), config.entry, dtsFilesOutdir);
-    const size = prettyBytes(brotliSize(await fs.readFile(config.outfile)));
-    console.log(`all: ${size} (br)`);
   },
 });
 
@@ -30,6 +28,21 @@ build({
   format: "cjs",
   minify: false,
   target: ["safari13"],
+});
+
+build({
+  tslint: false,
+  entry: "src/main.ts",
+  outfile: "dist/index.min.js",
+  bundle: true,
+  format: "iife",
+  globalName: 'TA',
+  minify: true,
+  target: ["safari13"],
+  async onEnd(config) {
+    const size = prettyBytes(brotliSize(await fs.readFile(config.outfile)));
+    console.log(`all: ${size} (br)`);
+  }
 });
 
 fs.readdir("./src").then((files) => {

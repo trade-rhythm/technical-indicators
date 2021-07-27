@@ -50,10 +50,11 @@ export default class Cross implements Serializable<CrossArgs> {
   }
   toJSON(): JSONDef<CrossArgs> {
     return {
-      $type: "finance.crisp.Cross",
+      $type: Cross.key,
       isOver: this.isOver,
     };
   }
+  static key = "finance.tr.Cross";
   static from({ isOver }: CrossArgs): Cross {
     return new Cross(isOver);
   }

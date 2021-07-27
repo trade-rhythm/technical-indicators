@@ -1,6 +1,6 @@
 import { lt } from "../utils";
 import Window, { WindowArgs } from "../Window";
-import type { JSONDef, Indicator } from "../types";
+import type { JSONDef, Indicator, Bar } from "../types";
 
 export interface SDArgs {
   period: number;
@@ -59,9 +59,12 @@ export default class SD implements Indicator<SDArgs> {
 
     return Math.sqrt(this.m2 / this.count);
   }
+  nextBar(bar: Bar): number {
+    return this.next(bar.close);
+  }
   toJSON(): JSONDef<SDArgs> {
     return {
-      $type: "finance.tr.SD",
+      $type: SD.key,
       period: this.period,
       count: this.count,
       m: this.m,
@@ -69,6 +72,7 @@ export default class SD implements Indicator<SDArgs> {
       window: this.window.toJSON(),
     };
   }
+  static key = "finance.tr.SD";
   static from({ period, count, m, m2, window }: SDArgs): SD {
     return new SD(period, count, m, m2, Window.from(window));
   }

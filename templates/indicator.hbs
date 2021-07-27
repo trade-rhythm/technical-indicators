@@ -5,11 +5,15 @@ export interface {{name}}Args {}
 export default class {{name}} implements Indicator<{{name}}Args> { 
   constructor() {} 
   next(value: number): number {}
+  display(value: string): string {
+    return `{{name}}(${value})`;
+  }
   toJSON(): JSONDef<{{name}}Args> { 
     return { 
-      $type: "finance.tr.{{name}}"
+      $type: {{name}}.key,
     };
   } 
+  static key = "finance.tr.{{name}}";
   static from({}: {{name}}Args): {{name}} { 
     return new {{name}}();
   }
