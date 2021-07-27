@@ -1,8 +1,8 @@
 import EMA from "../EMA";
 import type { EMAArgs } from "../EMA";
-import type { JSONDef } from "../types";
+import type { JSONDef, Indicator } from "../types";
 
-export default class MACD {
+export default class MACD implements Indicator {
   fast: EMA;
   slow: EMA;
   current: number | null;
@@ -17,6 +17,9 @@ export default class MACD {
     this.slow = typeof slow === "number" ? new EMA(slow) : slow;
     this.index = index;
     this.current = current;
+  }
+  display(value: string): string {
+    return `MACD(${this.fast.period}, ${this.slow.period}, ${value})`;
   }
   next(value: number): number | null {
     this.slow.next(value);

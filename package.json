@@ -5,6 +5,7 @@
   "main": "./dist/index.js",
   "types": "./dist/main.d.ts",
   "scripts": {
+    "plop": "plop",
     "lint": "eslint --fix",
     "format": "prettier --write --ignore-unknown .",
     "check": "tsc -p tsconfig.json --noEmit",
@@ -23,17 +24,22 @@
     "**/*": "prettier --write --ignore-unknown"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.14.8",
+    "@babel/preset-typescript": "^7.14.5",
     "@types/jest": "^26.0.24",
-    "@typescript-eslint/eslint-plugin": "^4.28.2",
-    "@typescript-eslint/parser": "^4.28.2",
+    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@typescript-eslint/parser": "^4.28.5",
     "esbuild-jest": "^0.5.0",
-    "eslint": "^7.30.0",
+    "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
     "estrella": "^1.4.1",
     "husky": "^7.0.1",
     "jest": "^27.0.6",
-    "lint-staged": "^11.0.0",
+    "jest-extended": "^0.11.5",
+    "lint-staged": "^11.1.1",
+    "plop": "^2.7.4",
     "prettier": "^2.3.2",
-    "ts-node": "^10.0.0"
+    "pretty-bytes": "^5.6.0",
+    "ts-node": "^10.1.0"
   }
 }

@@ -1,22 +1,34 @@
-import type { JSONDef } from "../types";
+import type { JSONDef, Serializable } from "../types";
 
 export type WindowArgs<T> = {
   size: number;
   index: number;
   array: T[];
+  needsInit: boolean;
 };
 
 // Window is a circular buffer
-export default class Window<T = number> {
+export default class Window<T = number> implements Serializable {
   index: number;
   size: number;
   #array: T[];
-  constructor(size: number, index = 0, array = new Array(size)) {
+  needsInit: boolean;
+  constructor(
+    size: number,
+    index = 0,
+    array = new Array(size),
+    needsInit = true
+  ) {
     this.size = size;
     this.index = index;
     this.#array = array;
+    this.needsInit = needsInit;
+  }
+  display(value: string): string {
+    return `Window(${this.size}, ${value})`;
   }
   init(value: T): void {
+    this.needsInit = false;
     this.#array.fill(value);
   }
   get(idx: number): T {
@@ -41,9 +53,15 @@ export default class Window<T = number> {
       size: this.size,
       index: this.index,
       array: this.#array,
+      needsInit: this.needsInit,
     };
   }
-  static from<T = number>({ size, index, array }: WindowArgs<T>): Window<T> {
-    return new Window(size, index, array);
+  static from<T = number>({
+    size,
+    index,
+    array,
+    needsInit,
+  }: WindowArgs<T>): Window<T> {
+    return new Window(size, index, array, needsInit);
   }
 }

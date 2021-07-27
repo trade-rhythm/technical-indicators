@@ -15,3 +15,12 @@ test("RSI calculates properly", () => {
     expect(rsi.next(val as number)).toBe(result);
   });
 });
+
+test("RSI serializes/deserializes correctly", () => {
+  const rsi = new RSI(6);
+  rsi.next(2.5);
+  rsi.next(3.6);
+  const json = JSON.stringify(rsi);
+  const newRSI = RSI.from(JSON.parse(json));
+  expect(newRSI.next(1.5)).toEqual(rsi.next(1.5));
+});

@@ -1,26 +1,25 @@
 import Window from "../Window";
 import type { WindowArgs } from "../Window";
-import type { JSONDef } from "../types";
+import type { JSONDef, Indicator } from "../types";
 
-export default class SMA {
+export default class SMA implements Indicator {
   period: number;
   window: Window<number>;
   current: number;
-  isNew: boolean;
   constructor(
     period: number,
     window: Window<number> = new Window(period),
-    current = 0.0,
-    isNew = true
+    current = 0.0
   ) {
     this.period = period;
     this.window = window;
     this.current = current;
-    this.isNew = isNew;
+  }
+  display(value: string): string {
+    return `SMA(${this.period}, ${value})`;
   }
   next(value: number): number {
-    if (this.isNew) {
-      this.isNew = false;
+    if (this.window.needsInit) {
       this.current = value;
       this.window.init(value);
     } else {
@@ -35,20 +34,17 @@ export default class SMA {
       period: this.period,
       window: this.window,
       current: this.current,
-      isNew: this.isNew,
     };
   }
   static from({
     period,
     window,
     current,
-    isNew,
   }: {
     period: number;
     window: WindowArgs<number>;
     current: number;
-    isNew: boolean;
   }): SMA {
-    return new SMA(period, Window.from(window), current, isNew);
+    return new SMA(period, Window.from(window), current);
   }
 }

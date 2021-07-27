@@ -1,8 +1,9 @@
 import Window from "../Window";
+import { lt } from "../utils";
 import type { WindowArgs } from "../Window";
-import type { JSONDef } from "../types";
+import type { JSONDef, Indicator } from "../types";
 
-export default class RSI {
+export default class RSI implements Indicator {
   period: number;
   index: number;
   window: Window;
@@ -10,6 +11,9 @@ export default class RSI {
     this.period = period;
     this.index = index;
     this.window = window;
+  }
+  display(value: string): string {
+    return `RSI(${this.period}, ${value})`;
   }
   next(value: number): number | null {
     this.index++;
@@ -22,7 +26,7 @@ export default class RSI {
       this.window.push(value);
       for (let q = 1; q < this.window.size; q++) {
         const v = this.window.get(q) - this.window.get(q - 1);
-        if (v < 0) {
+        if (lt(v, 0)) {
           loss += Math.abs(v);
         } else {
           gain += v;

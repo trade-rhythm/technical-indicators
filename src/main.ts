@@ -4,3 +4,7 @@ export { default as Window } from "./Window";
 export { default as Cross } from "./Cross";
 export { default as MACD } from "./MACD";
 export { default as RSI } from "./RSI";
+export { default as TR } from "./TR";
+export { default as ATR } from "./ATR";
+export { default as SD } from "./SD";
+export { lt, lte, gt, gte, eq, neq } from "./utils";
