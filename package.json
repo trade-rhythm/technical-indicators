@@ -3,7 +3,7 @@
   "version": "0.1.10",
   "description": "Technical indicators for algo trading",
   "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "unpkg": "./dist/index.min.js",
   "types": "./dist/main.d.ts",
   "scripts": {

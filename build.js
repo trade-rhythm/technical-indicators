@@ -9,7 +9,7 @@ const brotliSize = (buffer) => zlib.brotliCompressSync(buffer).length;
 
 build({
   entry: "src/main.ts",
-  outfile: "dist/index.js",
+  outfile: "dist/index.mjs",
   bundle: true,
   format: "esm",
   minify: false,

@@ -22,6 +22,9 @@ These features are helpful in scenarios when you want to calculate an indicator'
 - [x] TR
 - [x] SD
 - [x] BB
+- [x] MIN
+- [x] MAX
+- [x] CE
 - [ ] ADL
 - [ ] ADX
 - [ ] AO
@@ -39,6 +42,41 @@ These features are helpful in scenarios when you want to calculate an indicator'
 
 > Probably more!
 
+
+## Usage
+### Node
+```js
+import { EMA, Cross, parse } from '@trade-rhythm/technical-indicators';
+
+// init some indicators
+const ema = new EMA(9);
+const cross = new Cross()
+
+// do something with them
+function handleNewData(bar) {
+  const value = ema.next(bar.close); // or ema.nextBar(bar);
+  if (cross.over(value, bar.close)) {
+    // Do something!
+  }
+}
+
+// serialize indicators to JSON
+const state = {ema, cross};
+const json = JSON.stringify(state);
+
+// deserialize
+const newState = parse(json);
+```
+
+> You can also import indicators individually with `import EMA from '@trade-rhythm/technical-indicators/dist/EMA`
+
+
+### Deno / Browser
+```js
+import { EMA, Cross, parse } from 'https://unpkg.com/@trade-rhythm/technical-indicators';
+```
+
 ## Acknowledgements
 
 - Most of these indicators are a port from this awesome library in Rust: https://github.com/greyblake/ta-rs
+
