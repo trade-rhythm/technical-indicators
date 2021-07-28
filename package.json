@@ -1,6 +1,6 @@
 {
   "name": "@trade-rhythm/technical-indicators",
-  "version": "0.1.11",
+  "version": "0.2.0",
   "description": "Technical indicators for algo trading",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -18,9 +18,14 @@
   "keywords": [],
   "author": "nicksrandall",
   "license": "MIT",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "lint-staged": {
-    "**/*.ts": ["eslint --fix", "jest --bail --findRelatedTests"],
+    "**/*.ts": [
+      "eslint --fix",
+      "jest --bail --findRelatedTests"
+    ],
     "**/*.[!hbs]*": "prettier --write --ignore-unknown"
   },
   "devDependencies": {
