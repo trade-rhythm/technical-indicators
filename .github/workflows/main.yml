@@ -10,6 +10,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install modules
-      run: npm ci
+      run: npm i -g ts-node && npm ci
     - name: Run tests
       run: npm test
