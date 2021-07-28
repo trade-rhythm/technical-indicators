@@ -18,11 +18,9 @@
   "keywords": [],
   "author": "nicksrandall",
   "license": "MIT",
+  "files": ["dist"],
   "lint-staged": {
-    "**/*.ts": [
-      "eslint --fix",
-      "jest --bail --findRelatedTests"
-    ],
+    "**/*.ts": ["eslint --fix", "jest --bail --findRelatedTests"],
     "**/*.[!hbs]*": "prettier --write --ignore-unknown"
   },
   "devDependencies": {
