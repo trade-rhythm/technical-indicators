@@ -1,6 +1,6 @@
 import EMA, { EMAArgs } from "../EMA";
 import TR, { TRArgs } from "../TR";
-import type { JSONDef, Indicator, Bar } from "../types";
+import type { JSONDef, Indicator, High, Low, Close } from "../types";
 
 export interface ATRArgs {
   ema: EMAArgs;
@@ -20,7 +20,7 @@ export default class ATR implements Indicator<ATRArgs> {
   next(value: number): number {
     return this.ema.next(this.tr.next(value));
   }
-  nextBar(bar: Bar): number {
+  nextBar(bar: High & Low & Close): number {
     return this.ema.next(this.tr.nextBar(bar));
   }
   toJSON(): JSONDef<ATRArgs> {

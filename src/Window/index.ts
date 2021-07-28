@@ -34,6 +34,20 @@ export default class Window<T = number> implements Serializable<WindowArgs<T>> {
   get(idx: number): T {
     return this.#array[(this.index + idx) % this.size];
   }
+  back(count: number): T[] {
+    let start: number;
+    if (this.index >= count) {
+      start = this.index - count;
+    } else {
+      start = this.index - count + this.size;
+    }
+
+    const out: T[] = [];
+    for (let i = start; i < start + count; i++) {
+      out.push(this.#array[i % this.size]);
+    }
+    return out;
+  }
   values(): T[] {
     const out: T[] = [];
     for (let i = this.index; i < this.index + this.size; i++) {
@@ -53,7 +67,7 @@ export default class Window<T = number> implements Serializable<WindowArgs<T>> {
       size: this.size,
       index: this.index,
       array: this.#array,
-      needsInit: this.needsInit,
+      needsInit: this.needsInit
     };
   }
   static key = "finance.tr.Window";
@@ -61,7 +75,7 @@ export default class Window<T = number> implements Serializable<WindowArgs<T>> {
     size,
     index,
     array,
-    needsInit,
+    needsInit
   }: WindowArgs<T>): Window<T> {
     return new Window(size, index, array, needsInit);
   }

@@ -1,4 +1,4 @@
-import type { JSONDef, Indicator, Bar } from "../types";
+import type { JSONDef, Indicator, Low } from "../types";
 
 export interface MINArgs {
   period: number;
@@ -35,7 +35,7 @@ export default class MIN implements Indicator<MINArgs> {
     this.curIdx = this.curIdx + 1 < this.period ? this.curIdx + 1 : 0;
     return this.queue[this.minIdx];
   }
-  nextBar(bar: Bar): number {
+  nextBar(bar: Low): number {
     return this.next(bar.low);
   }
   findMinIdx(): number {
@@ -63,6 +63,6 @@ export default class MIN implements Indicator<MINArgs> {
   }
   static key = "finance.tr.MIN";
   static from({ period, minIdx, curIdx, queue }: MINArgs): MIN {
-    return new MIN(period, minIdx, curIdx, queue);
+    return new MIN(period, minIdx, curIdx, queue.map(v => v ?? Number.POSITIVE_INFINITY));
   }
 }

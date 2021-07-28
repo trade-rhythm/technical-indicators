@@ -1,5 +1,5 @@
 import Window, { WindowArgs } from "../Window";
-import type { JSONDef, Indicator, Bar } from "../types";
+import type { JSONDef, Indicator, Close } from "../types";
 
 export interface MADArgs {
   period: number;
@@ -33,16 +33,13 @@ export default class MAD implements Indicator<MADArgs> {
 
     const mean = this.sum / this.count;
 
-    const mad = this.window
-      .values()
-      .slice(this.period - this.count)
-      .reduce((memo, value) => {
-        return memo + Math.abs(value - mean);
-      }, 0);
+    const mad = this.window.back(this.count).reduce((memo, value) => {
+      return memo + Math.abs(value - mean);
+    }, 0);
 
     return mad / this.count;
   }
-  nextBar(bar: Bar): number {
+  nextBar(bar: Close): number {
     return this.next(bar.close);
   }
   display(value: string): string {

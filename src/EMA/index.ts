@@ -1,4 +1,4 @@
-import type { JSONDef, Indicator, Bar } from "../types";
+import type { JSONDef, Indicator, Close } from "../types";
 
 export interface EMAArgs {
   period: number;
@@ -30,7 +30,7 @@ export default class EMA implements Indicator<EMAArgs> {
     }
     return this.current;
   }
-  nextBar(bar: Bar): number {
+  nextBar(bar: Close): number {
     return this.next(bar.close);
   }
   toJSON(): JSONDef<EMAArgs> {

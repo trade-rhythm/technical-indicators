@@ -1,6 +1,6 @@
 import SMA, { SMAArgs } from "../SMA";
 import MAD, { MADArgs } from "../MAD";
-import type { JSONDef, Indicator, Bar } from "../types";
+import type { JSONDef, Indicator, High, Low, Close } from "../types";
 
 export interface CCIArgs {
   sma: SMAArgs;
@@ -25,7 +25,7 @@ export default class CCI implements Indicator<CCIArgs> {
     }
     return (tp - sma) / (mad * 0.015);
   }
-  nextBar(bar: Bar): number {
+  nextBar(bar: High & Low & Close): number {
     const tp = (bar.close + bar.high + bar.low) / 3;
     const sma = this.sma.next(tp);
     const mad = this.mad.nextBar(bar);

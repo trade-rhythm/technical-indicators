@@ -5,48 +5,49 @@ const { build, ts, tsconfig, dirname, glob, log } = require("estrella");
 const zlib = require("zlib");
 const prettyBytes = require("pretty-bytes");
 
-const brotliSize = (buffer) => zlib.brotliCompressSync(buffer).length;
+const brotliSize = buffer => zlib.brotliCompressSync(buffer).length;
+const config = {
+  entry: "src/main.ts",
+  target: ["safari13", "chrome90", "firefox88"] // Last 2 major versions
+};
 
 build({
-  entry: "src/main.ts",
+  ...config,
   outfile: "dist/index.mjs",
   bundle: true,
   format: "esm",
   minify: false,
-  target: ["safari13"],
   async onEnd(config) {
     const dtsFilesOutdir = dirname(config.outfile);
     generateTypeDefs(tsconfig(config), config.entry, dtsFilesOutdir);
-  },
-});
-
-build({
-  tslint: false,
-  entry: "src/main.ts",
-  outfile: "dist/index.cjs",
-  bundle: true,
-  format: "cjs",
-  minify: false,
-  target: ["safari13"],
-});
-
-build({
-  tslint: false,
-  entry: "src/main.ts",
-  outfile: "dist/index.min.js",
-  bundle: true,
-  format: "iife",
-  globalName: 'TA',
-  minify: true,
-  target: ["safari13"],
-  async onEnd(config) {
-    const size = prettyBytes(brotliSize(await fs.readFile(config.outfile)));
-    console.log(`all: ${size} (br)`);
   }
 });
 
-fs.readdir("./src").then((files) => {
-  files.forEach(async (file) => {
+build({
+  ...config,
+  tslint: false,
+  outfile: "dist/index.cjs",
+  bundle: true,
+  format: "cjs",
+  minify: false
+});
+
+build({
+  ...config,
+  tslint: false,
+  outfile: "dist/index.min.js",
+  bundle: true,
+  format: "iife",
+  globalName: "TA",
+  minify: true,
+  async onEnd(config) {
+    const size = prettyBytes(brotliSize(await fs.readFile(config.outfile)));
+    console.log(`all: ${size} (min, br)`);
+  }
+});
+
+fs.readdir("./src").then(files => {
+  files.forEach(async file => {
     const stat = await fs.lstat(`./src/${file}`);
     if (stat.isDirectory()) {
       build({
@@ -56,13 +57,13 @@ fs.readdir("./src").then((files) => {
         bundle: false,
         format: "esm",
         minify: false,
-        target: ["safari13"],
+        target: config.target,
         async onEnd(config) {
           const size = prettyBytes(
             brotliSize(await fs.readFile(config.outfile))
           );
           console.log(`${path.dirname(config.outfile)}: ${size} (br)`);
-        },
+        }
       });
       build({
         quiet: true,
@@ -71,8 +72,8 @@ fs.readdir("./src").then((files) => {
         outfile: `dist/${file}/index.cjs`,
         bundle: false,
         format: "cjs",
-        target: ["safari13"],
-        minify: false,
+        target: config.target,
+        minify: false
       });
     }
   });
@@ -85,13 +86,13 @@ function generateTypeDefs(tsconfig, entryfiles, outdir) {
         tsconfig.include || []
       )
     )
-  ).filter((v) => v);
+  ).filter(v => v);
   log.info("Generating type declaration files for", filenames.join(", "));
   const compilerOptions = {
     ...tsconfig.compilerOptions,
     moduleResolution: undefined,
     declaration: true,
-    outDir: outdir,
+    outDir: outdir
   };
   const program = ts.ts.createProgram(filenames, compilerOptions);
   const targetSourceFile = undefined;

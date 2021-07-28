@@ -1,5 +1,5 @@
 import SD, { SDArgs } from "../SD";
-import type { JSONDef, Indicator, Bar } from "../types";
+import type { JSONDef, Indicator, Close } from "../types";
 
 export interface BBArgs {
   period: number;
@@ -33,7 +33,7 @@ export default class BB implements Indicator<BBArgs, Band> {
       lower: this.sd.m - sd * this.multiplier,
     }
   }
-  nextBar(bar: Bar): Band {
+  nextBar(bar: Close): Band {
     return this.next(bar.close);
   }
   toJSON(): JSONDef<BBArgs> {

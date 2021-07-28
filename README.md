@@ -13,37 +13,38 @@ These features are helpful in scenarios when you want to calculate an indicator'
 
 ## Roadmap
 
-- [x] [EMA](https://www.investopedia.com/terms/e/ema.asp)
-- [x] [SMA](https://www.investopedia.com/terms/s/sma.asp)
+- [x] [ATR](https://www.investopedia.com/terms/a/atr.asp)
+- [x] [BB](https://www.investopedia.com/terms/b/bollingerbands.asp)
+- [x] [CCI](https://www.investopedia.com/terms/c/commoditychannelindex.asp)
+- [x] [CE](https://school.stockcharts.com/doku.php?id=technical_indicators:chandelier_exit)
 - [x] [Cross](https://www.investopedia.com/terms/c/crossover.asp)
-- [x] MACD
-- [x] RSI
-- [x] ATR
-- [x] TR
-- [x] SD
-- [x] BB
-- [x] MIN
-- [x] MAX
-- [x] CE
-- [x] CCI
-- [x] MAD
-- [ ] ADL
-- [ ] ADX
-- [ ] AO
-- [ ] CCI
-- [ ] FI
-- [ ] KST
-- [ ] MFI
-- [ ] OBV
-- [ ] PSAR
-- [ ] ROC
-- [ ] KD
-- [ ] StochRSI
-- [ ] TRIX
-- [ ] WMA
+- [x] [EMA](https://www.investopedia.com/terms/e/ema.asp)
+- [x] [ER](https://www.investopedia.com/terms/e/efficiencyratio.asp)
+- [x] [FAST_STOCH](https://www.investopedia.com/terms/s/stochasticoscillator.asp)
+- [x] [KC](https://www.investopedia.com/terms/k/keltnerchannel.asp)
+- [x] [MACD](https://www.investopedia.com/terms/m/macd.asp)
+- [x] [MAD](https://en.wikipedia.org/wiki/Mean_absolute_deviation)
+- [x] MAX - Highest value in a given timeframe
+- [x] [MFI](https://www.investopedia.com/terms/m/mfi.asp)
+- [x] MIN - Lowest value in a given timerframe
+- [x] [OBV](https://www.investopedia.com/terms/o/onbalancevolume.asp)
+- [x] [PPO](https://www.investopedia.com/terms/p/ppo.asp)
+- [x] [ROC](https://www.investopedia.com/terms/p/pricerateofchange.asp)
+- [x] [RSI](https://www.investopedia.com/terms/r/rsi.asp)
+- [x] [SD](https://www.investopedia.com/terms/s/standarddeviation.asp)
+- [x] [SLOW_STOCH](https://www.investopedia.com/terms/s/stochasticoscillator.asp)
+- [x] [SMA](https://www.investopedia.com/terms/s/sma.asp)
+- [x] TR - True Range (used by ATR)
+- [ ] [ADX](https://www.investopedia.com/terms/a/adx.asp)
+- [ ] [AO](https://www.moneycontrol.com/news/business/markets/technical-classroom-how-to-use-awesome-oscillator-in-trading-strategy-4201371.html)
+- [ ] [KST](https://www.investopedia.com/terms/k/know-sure-thing-kst.asp)
+- [ ] [PSAR](https://www.investopedia.com/terms/p/parabolicindicator.asp)
+- [ ] [TRIX](https://www.investopedia.com/terms/t/trix.asp)
 
 > Probably more!
 
+### Others
+- Window
 
 ## Usage
 ### Node

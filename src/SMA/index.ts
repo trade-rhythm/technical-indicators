@@ -1,6 +1,6 @@
 import Window from "../Window";
 import type { WindowArgs } from "../Window";
-import type { JSONDef, Indicator, Bar } from "../types";
+import type { JSONDef, Indicator, Close } from "../types";
 
 export interface SMAArgs {
   period: number;
@@ -39,7 +39,7 @@ export default class SMA implements Indicator<SMAArgs> {
     this.sum = this.sum - prev + value;
     return this.sum / this.count;
   }
-  nextBar(bar: Bar): number {
+  nextBar(bar: Close): number {
     return this.next(bar.close);
   }
   toJSON(): JSONDef<SMAArgs> {

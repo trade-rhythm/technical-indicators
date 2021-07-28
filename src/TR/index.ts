@@ -1,4 +1,4 @@
-import type { JSONDef, Indicator, Bar } from "../types";
+import type { JSONDef, Indicator, High, Low, Close } from "../types";
 
 export interface TRArgs {
   prev: number;
@@ -20,7 +20,7 @@ export default class TR implements Indicator<TRArgs> {
     }
     return 0;
   }
-  nextBar(bar: Bar): number {
+  nextBar(bar: High & Low & Close): number {
     const prevPrev = this.prev;
     this.prev = bar.close;
     if (prevPrev === null) {

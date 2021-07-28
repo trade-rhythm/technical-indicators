@@ -1,7 +1,7 @@
 import ATR, { ATRArgs } from "../ATR";
 import MIN, { MINArgs } from "../MIN";
 import MAX, { MAXArgs } from "../MAX";
-import type { JSONDef, Indicator, Bar } from "../types";
+import type { JSONDef, Indicator, High, Low, Close } from "../types";
 
 export interface CEArgs {
   period: number;
@@ -45,7 +45,7 @@ export default class CE implements Indicator<CEArgs, Chandelier> {
       short: min + atr
     };
   }
-  nextBar(bar: Bar): Chandelier {
+  nextBar(bar: High & Low & Close): Chandelier {
     const atr = this.atr.nextBar(bar) * this.multiplier;
     const min = this.min.nextBar(bar);
     const max = this.max.nextBar(bar);

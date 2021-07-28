@@ -1,7 +1,7 @@
 import Window from "../Window";
 import { lt } from "../utils";
 import type { WindowArgs } from "../Window";
-import type { JSONDef, Indicator, Bar } from "../types";
+import type { JSONDef, Indicator, Close } from "../types";
 
 export interface RSIArgs {
   period: number;
@@ -41,7 +41,7 @@ export default class RSI implements Indicator<RSIArgs> {
     }
     return 100 - 100 / (1 + gain / this.period / (loss / this.period));
   }
-  nextBar(bar: Bar): number {
+  nextBar(bar: Close): number {
     return this.next(bar.close);
   }
   toJSON(): JSONDef<RSIArgs> {

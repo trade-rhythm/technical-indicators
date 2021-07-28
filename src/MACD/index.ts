@@ -1,6 +1,6 @@
 import EMA from "../EMA";
 import type { EMAArgs } from "../EMA";
-import type { JSONDef, Indicator, Bar } from "../types";
+import type { JSONDef, Indicator, Close } from "../types";
 
 export interface MACDArgs {
   fast: EMAArgs;
@@ -44,7 +44,7 @@ export default class MACD implements Indicator<MACDArgs, MACDOutput> {
       histogram
     };
   }
-  nextBar(bar: Bar): MACDOutput {
+  nextBar(bar: Close): MACDOutput {
     return this.next(bar.close);
   }
   toJSON(): JSONDef<MACDArgs> {

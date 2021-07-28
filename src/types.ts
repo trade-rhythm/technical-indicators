@@ -1,8 +1,17 @@
-export interface Bar {
+export interface Open {
   open: number;
+}
+export interface Close {
   close: number;
+}
+export interface High {
   high: number;
+}
+export interface Low {
   low: number;
+}
+export interface Volume {
+  volume: number;
 }
 
 export type JSONDef<T = Record<string, unknown>> = T & {
@@ -16,5 +25,5 @@ export interface Serializable<T> {
 
 export interface Indicator<T, V = number, VB = V> extends Serializable<T> {
   next(v: number): V | null;
-  nextBar(v: Bar): VB | null;
+  nextBar(v: High | Low | Open | Close): VB | null;
 }

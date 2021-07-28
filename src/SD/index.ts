@@ -1,6 +1,6 @@
 import { lt } from "../utils";
 import Window, { WindowArgs } from "../Window";
-import type { JSONDef, Indicator, Bar } from "../types";
+import type { JSONDef, Indicator, Close } from "../types";
 
 export interface SDArgs {
   period: number;
@@ -59,7 +59,7 @@ export default class SD implements Indicator<SDArgs> {
 
     return Math.sqrt(this.m2 / this.count);
   }
-  nextBar(bar: Bar): number {
+  nextBar(bar: Close): number {
     return this.next(bar.close);
   }
   toJSON(): JSONDef<SDArgs> {

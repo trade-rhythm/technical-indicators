@@ -1,4 +1,4 @@
-import type { JSONDef, Indicator, Bar } from "../types";
+import type { JSONDef, Indicator, High } from "../types";
 
 export interface MAXArgs {
   period: number;
@@ -35,7 +35,7 @@ export default class MAX implements Indicator<MAXArgs> {
     this.curIdx = this.curIdx + 1 < this.period ? this.curIdx + 1 : 0;
     return this.queue[this.maxIdx];
   }
-  nextBar(bar: Bar): number {
+  nextBar(bar: High): number {
     return this.next(bar.high);
   }
   findMaxIdx(): number {
@@ -63,6 +63,11 @@ export default class MAX implements Indicator<MAXArgs> {
   }
   static key = "finance.tr.MAX";
   static from({ period, maxIdx, curIdx, queue }: MAXArgs): MAX {
-    return new MAX(period, maxIdx, curIdx, queue);
+    return new MAX(
+      period,
+      maxIdx,
+      curIdx,
+      queue.map(v => v ?? Number.NEGATIVE_INFINITY)
+    );
   }
 }
