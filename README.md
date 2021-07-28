@@ -25,6 +25,8 @@ These features are helpful in scenarios when you want to calculate an indicator'
 - [x] MIN
 - [x] MAX
 - [x] CE
+- [x] CCI
+- [x] MAD
 - [ ] ADL
 - [ ] ADX
 - [ ] AO
