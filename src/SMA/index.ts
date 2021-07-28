@@ -5,34 +5,39 @@ import type { JSONDef, Indicator, Bar } from "../types";
 export interface SMAArgs {
   period: number;
   window: WindowArgs<number>;
-  current: number;
+  sum: number;
+  count: number;
 }
 
 export default class SMA implements Indicator<SMAArgs> {
   period: number;
   window: Window<number>;
-  current: number;
+  sum: number;
+  count: number;
   constructor(
     period: number,
     window: Window<number> = new Window(period),
-    current = 0.0
+    sum = 0,
+    count = 0
   ) {
     this.period = period;
     this.window = window;
-    this.current = current;
+    this.sum = sum;
+    this.count = count;
+    if (this.window.needsInit) {
+      this.window.init(0);
+    }
   }
   display(value: string): string {
     return `SMA(${this.period}, ${value})`;
   }
   next(value: number): number {
-    if (this.window.needsInit) {
-      this.current = value;
-      this.window.init(value);
-    } else {
-      const prev = this.window.push(value);
-      this.current += (value - prev) / this.period;
+    const prev = this.window.push(value);
+    if (this.count < this.period) {
+      this.count += 1;
     }
-    return this.current;
+    this.sum = this.sum - prev + value;
+    return this.sum / this.count;
   }
   nextBar(bar: Bar): number {
     return this.next(bar.close);
@@ -42,11 +47,12 @@ export default class SMA implements Indicator<SMAArgs> {
       $type: SMA.key,
       period: this.period,
       window: this.window.toJSON(),
-      current: this.current
+      sum: this.sum,
+      count: this.count
     };
   }
-  static key = "finance.tr.MA";
-  static from({ period, window, current }: SMAArgs): SMA {
-    return new SMA(period, Window.from(window), current);
+  static key = "finance.tr.SMA";
+  static from({ period, window, sum, count }: SMAArgs): SMA {
+    return new SMA(period, Window.from(window), sum, count);
   }
 }

@@ -1,10 +1,13 @@
-import type { JSONDef, Indicator } from "../types";
+import type { JSONDef, Indicator, Bar } from "../types";
 
 export interface {{name}}Args {} 
 
 export default class {{name}} implements Indicator<{{name}}Args> { 
   constructor() {} 
   next(value: number): number {}
+  nextBar(bar: Bar): number {
+    return this.next(bar.close);
+  }
   display(value: string): string {
     return `{{name}}(${value})`;
   }

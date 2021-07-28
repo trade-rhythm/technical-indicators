@@ -1,9 +1,11 @@
 import ATR, { ATRArgs } from "./ATR";
 import BB, { BBArgs } from "./BB";
+import CCI, { CCIArgs } from "./CCI";
 import CE, { CEArgs } from "./CE";
 import Cross, { CrossArgs } from "./Cross";
 import EMA, { EMAArgs } from "./EMA";
 import MACD, { MACDArgs } from "./MACD";
+import MAD, { MADArgs } from "./MAD";
 import MAX, { MAXArgs } from "./MAX";
 import MIN, { MINArgs } from "./MIN";
 import RSI, { RSIArgs } from "./RSI";
@@ -19,6 +21,8 @@ const parse = (json: string): unknown => {
         return ATR.from(value as ATRArgs);
       case BB.key:
         return BB.from(value as BBArgs);
+      case CCI.key:
+        return CCI.from(value as CCIArgs);
       case CE.key:
         return CE.from(value as CEArgs);
       case Cross.key:
@@ -27,6 +31,8 @@ const parse = (json: string): unknown => {
         return EMA.from(value as EMAArgs);
       case MACD.key:
         return MACD.from(value as MACDArgs);
+      case MAD.key:
+        return MAD.from(value as MADArgs);
       case MAX.key:
         return MAX.from(value as MAXArgs);
       case MIN.key:
@@ -48,4 +54,21 @@ const parse = (json: string): unknown => {
 };
 
 export { lt, lte, gt, gte, eq, neq } from "./utils";
-export { ATR, BB, CE, Cross, EMA, MACD, MAX, MIN, RSI, SD, SMA, TR, Window, parse };
+export {
+  ATR,
+  BB,
+  CCI,
+  CE,
+  Cross,
+  EMA,
+  MACD,
+  MAD,
+  MAX,
+  MIN,
+  RSI,
+  SD,
+  SMA,
+  TR,
+  Window,
+  parse
+};
