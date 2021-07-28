@@ -1,5 +1,7 @@
 # Technical Indicators
 
+[![Jest](https://github.com/nicksrandall/technical-indicators/actions/workflows/main.yml/badge.svg)](https://github.com/nicksrandall/technical-indicators/actions/workflows/main.yml)
+
 This is a work in progress. Stay tuned!
 
 ## Why another technical indicator library?
