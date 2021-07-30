@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install globals
-      run: sudo npm i -g ts-node typescript
+      run: sudo npm i -g ts-node typescript @types/node
     - name: Install modules
       run: npm ci
     - name: Run tests
