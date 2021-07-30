@@ -9,7 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Install globals
+      run: sudo npm i -g ts-node typescript
     - name: Install modules
-      run: npm ci && npm i -g ts-node typescript
+      run: npm ci
     - name: Run tests
       run: npm test
