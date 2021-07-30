@@ -35,17 +35,20 @@ export default class CCI implements Indicator<CCIArgs> {
 
     return (tp - sma) / (mad * 0.015);
   }
-  display(value: string): string {
-    return `CCI(${this.sma.period}, ${value})`;
+  toString(): string {
+    return `CCI(${this.sma.period})`;
   }
   toJSON(): JSONDef<CCIArgs> {
     return {
       $type: CCI.key,
       sma: this.sma.toJSON(),
-      mad: this.mad.toJSON()
+      mad: this.mad.toJSON(),
     };
   }
   static key = "finance.tr.CCI";
+  static display({ sma }: CCIArgs): string {
+    return `CCI(${sma.period})`;
+  }
   static from({ sma, mad }: CCIArgs): CCI {
     return new CCI(sma.period, SMA.from(sma), MAD.from(mad));
   }

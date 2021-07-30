@@ -11,7 +11,7 @@ test("MFI calculates correctly", () => {
     [4, 2, 3, 5000, 8.602],
     [2, 1, 1.5, 6000, 0],
     [2, 2, 2, 7000, 36.842],
-    [2, 2, 2, 7000, 60.87]
+    [2, 2, 2, 7000, 60.87],
   ].forEach(([high, low, close, volume, result]) => {
     expect(+mfi.nextBar({ high, low, close, volume }).toFixed(3)).toBe(result);
   });

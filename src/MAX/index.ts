@@ -49,8 +49,8 @@ export default class MAX implements Indicator<MAXArgs> {
     });
     return index;
   }
-  display(value: string): string {
-    return `MAX(${this.period}, ${value})`;
+  toString(): string {
+    return `MAX(${this.period})`;
   }
   toJSON(): JSONDef<MAXArgs> {
     return {
@@ -58,16 +58,19 @@ export default class MAX implements Indicator<MAXArgs> {
       period: this.period,
       maxIdx: this.maxIdx,
       curIdx: this.curIdx,
-      queue: this.queue
+      queue: this.queue,
     };
   }
   static key = "finance.tr.MAX";
+  static display({ period }: MAXArgs, value: string = "HIGH"): string {
+    return `MAX(${period}, ${value})`;
+  }
   static from({ period, maxIdx, curIdx, queue }: MAXArgs): MAX {
     return new MAX(
       period,
       maxIdx,
       curIdx,
-      queue.map(v => v ?? Number.NEGATIVE_INFINITY)
+      queue.map((v) => v ?? Number.NEGATIVE_INFINITY)
     );
   }
 }

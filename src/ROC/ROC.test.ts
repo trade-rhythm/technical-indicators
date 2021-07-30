@@ -8,7 +8,7 @@ test("ROC calculates correctly", () => {
     [10.57, 5.7],
     [10.8, 8],
     [10.9, 4.808],
-    [10, -5.393]
+    [10, -5.393],
   ].forEach(([val, result]) => {
     expect(+roc.next(val).toFixed(3)).toBe(result);
   });

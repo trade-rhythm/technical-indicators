@@ -5,10 +5,10 @@ const { build, ts, tsconfig, dirname, glob, log } = require("estrella");
 const zlib = require("zlib");
 const prettyBytes = require("pretty-bytes");
 
-const brotliSize = buffer => zlib.brotliCompressSync(buffer).length;
+const brotliSize = (buffer) => zlib.brotliCompressSync(buffer).length;
 const config = {
   entry: "src/main.ts",
-  target: ["safari13", "chrome90", "firefox88"] // Last 2 major versions
+  target: ["safari13", "chrome90", "firefox88"], // Last 2 major versions
 };
 
 build({
@@ -20,7 +20,7 @@ build({
   async onEnd(config) {
     const dtsFilesOutdir = dirname(config.outfile);
     generateTypeDefs(tsconfig(config), config.entry, dtsFilesOutdir);
-  }
+  },
 });
 
 build({
@@ -29,7 +29,7 @@ build({
   outfile: "dist/index.cjs",
   bundle: true,
   format: "cjs",
-  minify: false
+  minify: false,
 });
 
 build({
@@ -43,11 +43,11 @@ build({
   async onEnd(config) {
     const size = prettyBytes(brotliSize(await fs.readFile(config.outfile)));
     console.log(`all: ${size} (min, br)`);
-  }
+  },
 });
 
-fs.readdir("./src").then(files => {
-  files.forEach(async file => {
+fs.readdir("./src").then((files) => {
+  files.forEach(async (file) => {
     const stat = await fs.lstat(`./src/${file}`);
     if (stat.isDirectory()) {
       build({
@@ -63,7 +63,7 @@ fs.readdir("./src").then(files => {
             brotliSize(await fs.readFile(config.outfile))
           );
           console.log(`${path.dirname(config.outfile)}: ${size} (br)`);
-        }
+        },
       });
       build({
         quiet: true,
@@ -73,7 +73,7 @@ fs.readdir("./src").then(files => {
         bundle: false,
         format: "cjs",
         target: config.target,
-        minify: false
+        minify: false,
       });
     }
   });
@@ -86,13 +86,13 @@ function generateTypeDefs(tsconfig, entryfiles, outdir) {
         tsconfig.include || []
       )
     )
-  ).filter(v => v);
+  ).filter((v) => v);
   log.info("Generating type declaration files for", filenames.join(", "));
   const compilerOptions = {
     ...tsconfig.compilerOptions,
     moduleResolution: undefined,
     declaration: true,
-    outDir: outdir
+    outDir: outdir,
   };
   const program = ts.ts.createProgram(filenames, compilerOptions);
   const targetSourceFile = undefined;

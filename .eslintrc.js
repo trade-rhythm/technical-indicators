@@ -14,5 +14,7 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["@typescript-eslint"],
-  rules: {},
+  rules: {
+    "no-unused-vars": ["error", { varsIgnorePattern: "__assertStatic" }],
+  },
 };

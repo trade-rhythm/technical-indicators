@@ -34,18 +34,21 @@ export default class ROC implements Indicator<ROCArgs> {
   nextBar(bar: Close): number {
     return this.next(bar.close);
   }
-  display(value: string): string {
-    return `ROC(${this.period}, ${value})`;
+  toString(): string {
+    return `ROC(${this.period})`;
   }
   toJSON(): JSONDef<ROCArgs> {
     return {
       $type: ROC.key,
       period: this.period,
       count: this.count,
-      window: this.window.toJSON()
+      window: this.window.toJSON(),
     };
   }
   static key = "finance.tr.ROC";
+  static display({ period }: ROCArgs, value: string = 'CLOSE'): string {
+    return `ROC(${period}, ${value})`;
+  }
   static from({ period, count, window }: ROCArgs): ROC {
     return new ROC(period, count, Window.from(window));
   }

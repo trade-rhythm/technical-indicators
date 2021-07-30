@@ -17,7 +17,7 @@ test("SLOW_STOCH calculates correctly with bar", () => {
     [40.0, 20.0, 16.0, 32.78],
     [35.0, 15.0, 19.0, 21.59],
     [30.0, 20.0, 25.0, 33.86],
-    [35.0, 25.0, 30.0, 61.29]
+    [35.0, 25.0, 30.0, 61.29],
   ].forEach(([high, low, close, result]) => {
     expect(+stoch.nextBar({ high, low, close }).toFixed(2)).toBe(result);
   });

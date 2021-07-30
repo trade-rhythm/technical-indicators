@@ -29,18 +29,21 @@ export default class FAST_STOCH implements Indicator<FAST_STOCHArgs> {
     if (min === max) return 50;
     return ((bar.close - min) / (max - min)) * 100;
   }
-  display(value: string): string {
-    return `FAST_STOCH(${this.period}, ${value})`;
+  toString(): string {
+    return `FAST_STOCH(${this.period})`;
   }
   toJSON(): JSONDef<FAST_STOCHArgs> {
     return {
       $type: FAST_STOCH.key,
       period: this.period,
       min: this.min.toJSON(),
-      max: this.max.toJSON()
+      max: this.max.toJSON(),
     };
   }
   static key = "finance.tr.FAST_STOCH";
+  static display({ period }: FAST_STOCHArgs): string {
+    return `FAST_STOCH(${period})`;
+  }
   static from({ period, min, max }: FAST_STOCHArgs): FAST_STOCH {
     return new FAST_STOCH(period, MIN.from(min), MAX.from(max));
   }

@@ -8,7 +8,7 @@ test("MAD calculates correctly", () => {
     [8, 2.333],
     [4, 1.813],
     [4, 1.48],
-    [1.5, 1.48]
+    [1.5, 1.48],
   ].forEach(([val, result]) => {
     expect(+mad.next(val).toFixed(3)).toBe(result);
   });

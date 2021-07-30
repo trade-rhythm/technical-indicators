@@ -18,8 +18,8 @@ export default class RSI implements Indicator<RSIArgs> {
     this.index = index;
     this.window = window;
   }
-  display(value: string): string {
-    return `RSI(${this.period}, ${value})`;
+  toString(): string {
+    return `RSI(${this.period})`;
   }
   next(value: number): number | null {
     this.index++;
@@ -53,6 +53,9 @@ export default class RSI implements Indicator<RSIArgs> {
     };
   }
   static key = "finance.tr.RSI";
+  static display({ period }: RSIArgs, value: string = 'CLOSE'): string {
+    return `RSI(${period}, ${value})`;
+  }
   static from({ period, index, window }: RSIArgs): RSI {
     return new RSI(period, index, Window.from(window));
   }

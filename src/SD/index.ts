@@ -32,8 +32,8 @@ export default class SD implements Indicator<SDArgs> {
       this.window.init(0);
     }
   }
-  display(value: string): string {
-    return `SD(${this.period}, ${value})`;
+  toString(): string {
+    return `SD(${this.period})`;
   }
   next(value: number): number {
     const prev = this.window.push(value);
@@ -69,10 +69,13 @@ export default class SD implements Indicator<SDArgs> {
       count: this.count,
       m: this.m,
       m2: this.m2,
-      window: this.window.toJSON(),
+      window: this.window.toJSON()
     };
   }
   static key = "finance.tr.SD";
+  static display({ period }: SDArgs, value: string = "CLOSE"): string {
+    return `SD(${period}, ${value})`;
+  }
   static from({ period, count, m, m2, window }: SDArgs): SD {
     return new SD(period, count, m, m2, Window.from(window));
   }
