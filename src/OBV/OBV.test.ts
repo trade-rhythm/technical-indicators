@@ -7,7 +7,7 @@ test("OBV calculates correctly", () => {
     [1.5, 1000, 1000],
     [5, 5000, 6000],
     [4, 9000, -3000],
-    [4, 4000, -3000]
+    [4, 4000, -3000],
   ].forEach(([close, volume, result]) => {
     expect(obv.nextBar({ close, volume })).toBe(result);
   });

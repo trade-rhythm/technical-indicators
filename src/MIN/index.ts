@@ -49,8 +49,8 @@ export default class MIN implements Indicator<MINArgs> {
     });
     return index;
   }
-  display(value: string): string {
-    return `MIN(${this.period}, ${value})`;
+  toString(): string {
+    return `MIN(${this.period})`;
   }
   toJSON(): JSONDef<MINArgs> {
     return {
@@ -62,7 +62,15 @@ export default class MIN implements Indicator<MINArgs> {
     };
   }
   static key = "finance.tr.MIN";
+  static display({ period }: MINArgs, value: string = "LOW"): string {
+    return `MIN(${period}, ${value})`;
+  }
   static from({ period, minIdx, curIdx, queue }: MINArgs): MIN {
-    return new MIN(period, minIdx, curIdx, queue.map(v => v ?? Number.POSITIVE_INFINITY));
+    return new MIN(
+      period,
+      minIdx,
+      curIdx,
+      queue.map(v => v ?? Number.POSITIVE_INFINITY)
+    );
   }
 }

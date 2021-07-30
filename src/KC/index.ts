@@ -37,7 +37,7 @@ export default class KC implements Indicator<KCArgs, KCOutput> {
     return {
       average: avg,
       upper: avg + atr * this.multiplier,
-      lower: avg - atr * this.multiplier
+      lower: avg - atr * this.multiplier,
     };
   }
   nextBar(bar: High & Low & Close): KCOutput {
@@ -47,11 +47,11 @@ export default class KC implements Indicator<KCArgs, KCOutput> {
     return {
       average: avg,
       upper: avg + atr * this.multiplier,
-      lower: avg - atr * this.multiplier
+      lower: avg - atr * this.multiplier,
     };
   }
-  display(value: string): string {
-    return `KC(${this.period}, ${this.multiplier}, ${value})`;
+  toString(): string {
+    return `KC(${this.period}, ${this.multiplier})`;
   }
   toJSON(): JSONDef<KCArgs> {
     return {
@@ -59,10 +59,13 @@ export default class KC implements Indicator<KCArgs, KCOutput> {
       period: this.period,
       multiplier: this.multiplier,
       atr: this.atr.toJSON(),
-      ema: this.ema.toJSON()
+      ema: this.ema.toJSON(),
     };
   }
   static key = "finance.tr.KC";
+  static display({ period, multiplier }: KCArgs): string {
+    return `KC(${period}, ${multiplier})`;
+  }
   static from({ period, multiplier, atr, ema }: KCArgs): KC {
     return new KC(period, multiplier, ATR.from(atr), EMA.from(ema));
   }

@@ -24,8 +24,8 @@ export default class Window<T = number> implements Serializable<WindowArgs<T>> {
     this.#array = array;
     this.needsInit = needsInit;
   }
-  display(value: string): string {
-    return `Window(${this.size}, ${value})`;
+  toString(): string {
+    return `Window(${this.size})`;
   }
   init(value: T): void {
     this.needsInit = false;
@@ -67,15 +67,18 @@ export default class Window<T = number> implements Serializable<WindowArgs<T>> {
       size: this.size,
       index: this.index,
       array: this.#array,
-      needsInit: this.needsInit
+      needsInit: this.needsInit,
     };
   }
   static key = "finance.tr.Window";
+  static display<T = number>({ size }: WindowArgs<T>): string {
+    return `Window(${size})`;
+  }
   static from<T = number>({
     size,
     index,
     array,
-    needsInit
+    needsInit,
   }: WindowArgs<T>): Window<T> {
     return new Window(size, index, array, needsInit);
   }

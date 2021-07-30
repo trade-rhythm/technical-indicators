@@ -43,8 +43,8 @@ export default class PPO implements Indicator<PPOArgs, PPOOut> {
   nextBar(bar: Close): PPOOut {
     return this.next(bar.close);
   }
-  display(value: string): string {
-    return `PPO(${this.fast.period}, ${this.slow.period}, ${this.signal.period}, ${value})`;
+  toString(): string {
+    return `PPO(${this.fast.period}, ${this.slow.period}, ${this.signal.period})`;
   }
   toJSON(): JSONDef<PPOArgs> {
     return {
@@ -55,6 +55,12 @@ export default class PPO implements Indicator<PPOArgs, PPOOut> {
     };
   }
   static key = "finance.tr.PPO";
+  static display(
+    { fast, slow, signal }: PPOArgs,
+    value: string = "CLOSE"
+  ): string {
+    return `PPO(${fast.period}, ${slow.period}, ${signal.period}, ${value})`;
+  }
   static from({ fast, slow, signal }: PPOArgs): PPO {
     return new PPO(EMA.from(fast), EMA.from(slow), EMA.from(signal));
   }

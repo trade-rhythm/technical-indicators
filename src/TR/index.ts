@@ -9,9 +9,6 @@ export default class TR implements Indicator<TRArgs> {
   constructor(prev: number | null = null) {
     this.prev = typeof prev === "number" ? prev : null;
   }
-  display(value: string): string {
-    return `TR(${value})`;
-  }
   next(value: number): number | null {
     const prevPrev = this.prev;
     this.prev = value;
@@ -32,10 +29,16 @@ export default class TR implements Indicator<TRArgs> {
       return Math.max(dist1, dist2, dist3);
     }
   }
+  toString(): string {
+    return `TR()`;
+  }
   toJSON(): JSONDef<TRArgs> {
     return { $type: TR.key, prev: this.prev };
   }
   static key = "finance.tr.TR";
+  static display(): string {
+    return `TR()`;
+  }
   static from({ prev }: TRArgs): TR {
     return new TR(prev);
   }

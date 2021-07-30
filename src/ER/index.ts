@@ -29,7 +29,7 @@ export default class ER implements Indicator<ERArgs> {
     }
     let volatility = 0;
     let prev = oldest;
-    this.window.back(this.count).forEach(value => {
+    this.window.back(this.count).forEach((value) => {
       volatility += Math.abs(prev - value);
       prev = value;
     });
@@ -38,18 +38,21 @@ export default class ER implements Indicator<ERArgs> {
   nextBar(bar: Close): number {
     return this.next(bar.close);
   }
-  display(value: string): string {
-    return `ER(${this.period}, ${value})`;
+  toString(): string {
+    return `ER(${this.period})`;
   }
   toJSON(): JSONDef<ERArgs> {
     return {
       $type: ER.key,
       period: this.period,
       count: this.count,
-      window: this.window.toJSON()
+      window: this.window.toJSON(),
     };
   }
   static key = "finance.tr.ER";
+  static display({ period }: ERArgs, value: string = 'CLOSE'): string {
+    return `ER(${period}, ${value})`;
+  }
   static from({ period, count, window }: ERArgs): ER {
     return new ER(period, count, Window.from(window));
   }

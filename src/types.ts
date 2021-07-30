@@ -20,10 +20,16 @@ export type JSONDef<T = Record<string, unknown>> = T & {
 
 export interface Serializable<T> {
   toJSON(): JSONDef<T>;
-  display(value: string): string;
+  toString(): string;
 }
 
 export interface Indicator<T, V = number, VB = V> extends Serializable<T> {
   next(v: number): V | null;
   nextBar(v: High | Low | Open | Close): VB | null;
+}
+
+export interface SerializableStatic<T = unknown> {
+  key: string;
+  display(props: T, value?: string, value2?: string): string;
+  from(props: T): Serializable<T>;
 }

@@ -3,7 +3,7 @@ import PPO, { PPOOut } from "./index";
 const round = (v: PPOOut): PPOOut => ({
   ppo: +v.ppo.toFixed(2),
   signal: +v.signal.toFixed(2),
-  hisogram: +v.histogram.toFixed(2)
+  hisogram: +v.histogram.toFixed(2),
 });
 
 test("PPO calculates correctly", () => {
@@ -15,12 +15,12 @@ test("PPO calculates correctly", () => {
     [4.2, 18.26, 9.56, 8.71],
     [7, 28.62, 17.18, 11.44],
     [6.7, 24.01, 19.91, 4.09],
-    [6.5, 17.84, 19.08, -1.24]
+    [6.5, 17.84, 19.08, -1.24],
   ].forEach(([val, ppoVal, signal, hisogram]) => {
     expect(round(ppo.next(val))).toStrictEqual({
       ppo: ppoVal,
       signal,
-      hisogram
+      hisogram,
     });
   });
 });

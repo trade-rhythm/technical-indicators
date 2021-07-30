@@ -19,8 +19,8 @@ export default class EMA implements Indicator<EMAArgs> {
     this.k = k;
     this.current = current;
   }
-  display(value: string): string {
-    return `EMA(${this.period}, ${value})`;
+  toString(): string {
+    return `EMA(${this.period})`;
   }
   next(value: number): number {
     if (this.current === null) {
@@ -38,10 +38,13 @@ export default class EMA implements Indicator<EMAArgs> {
       $type: EMA.key,
       period: this.period,
       k: this.k,
-      current: this.current
+      current: this.current,
     };
   }
   static key = "finance.tr.EMA";
+  static display({ period }: EMAArgs, value: string = 'CLOSE'): string {
+    return `EMA(${period}, ${value})`;
+  }
   static from({ period, k, current }: EMAArgs): EMA {
     return new EMA(period, k, current);
   }

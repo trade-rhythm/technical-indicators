@@ -20,17 +20,20 @@ export default class SLOW_STOCH implements Indicator<SLOW_STOCHArgs> {
   nextBar(bar: High & Low & Close): number {
     return this.ema.next(this.fast.nextBar(bar));
   }
-  display(value: string): string {
-    return `SLOW_STOCH(${this.fast.period}, ${this.ema.period}, ${value})`;
+  toString(): string {
+    return `SLOW_STOCH(${this.fast.period}, ${this.ema.period})`;
   }
   toJSON(): JSONDef<SLOW_STOCHArgs> {
     return {
       $type: SLOW_STOCH.key,
       fast: this.fast.toJSON(),
-      ema: this.ema.toJSON()
+      ema: this.ema.toJSON(),
     };
   }
   static key = "finance.tr.SLOW_STOCH";
+  static display({ fast, ema }: SLOW_STOCHArgs): string {
+    return `SLOW_STOCH(${fast.period}, ${ema.period})`;
+  }
   static from({ fast, ema }: SLOW_STOCHArgs): SLOW_STOCH {
     return new SLOW_STOCH(FAST_STOCH.from(fast), EMA.from(ema));
   }

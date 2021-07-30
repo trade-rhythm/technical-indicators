@@ -24,17 +24,20 @@ export default class OBV implements Indicator<OBVArgs> {
     this.prevClose = bar.close;
     return this.obv;
   }
-  display(value: string): string {
-    return `OBV(${value})`;
+  toString(): string {
+    return `OBV()`;
   }
   toJSON(): JSONDef<OBVArgs> {
     return {
       $type: OBV.key,
       obv: this.obv,
-      prevClose: this.prevClose
+      prevClose: this.prevClose,
     };
   }
   static key = "finance.tr.OBV";
+  static display(): string {
+    return `OBV()`;
+  }
   static from({ obv, prevClose }: OBVArgs): OBV {
     return new OBV(obv, prevClose);
   }

@@ -75,8 +75,8 @@ export default class MFI implements Indicator<MFIArgs> {
       (this.totalPositive / (this.totalPositive + this.totalNegative)) * 100
     );
   }
-  display(value: string): string {
-    return `MFI(${value})`;
+  toString(): string {
+    return `MFI(${this.period})`;
   }
   toJSON(): JSONDef<MFIArgs> {
     return {
@@ -87,10 +87,13 @@ export default class MFI implements Indicator<MFIArgs> {
       prevPrice: this.prevPrice,
       totalPositive: this.totalPositive,
       totalNegative: this.totalNegative,
-      queue: this.queue
+      queue: this.queue,
     };
   }
   static key = "finance.tr.MFI";
+  static display({ period }: MFIArgs): string {
+    return `MFI(${period})`;
+  }
   static from({
     period,
     index,
@@ -98,7 +101,7 @@ export default class MFI implements Indicator<MFIArgs> {
     prevPrice,
     totalPositive,
     totalNegative,
-    queue
+    queue,
   }: MFIArgs): MFI {
     return new MFI(
       period,

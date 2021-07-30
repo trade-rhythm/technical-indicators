@@ -42,7 +42,7 @@ export default class CE implements Indicator<CEArgs, Chandelier> {
 
     return {
       long: max - atr,
-      short: min + atr
+      short: min + atr,
     };
   }
   nextBar(bar: High & Low & Close): Chandelier {
@@ -52,11 +52,11 @@ export default class CE implements Indicator<CEArgs, Chandelier> {
 
     return {
       long: max - atr,
-      short: min + atr
+      short: min + atr,
     };
   }
-  display(value: string): string {
-    return `CE(${this.period}, ${this.multiplier}, ${value})`;
+  toString(): string {
+    return `CE(${this.period}, ${this.multiplier})`;
   }
   toJSON(): JSONDef<CEArgs> {
     return {
@@ -65,10 +65,13 @@ export default class CE implements Indicator<CEArgs, Chandelier> {
       multiplier: this.multiplier,
       atr: this.atr.toJSON(),
       max: this.max.toJSON(),
-      min: this.min.toJSON()
+      min: this.min.toJSON(),
     };
   }
   static key = "finance.tr.CE";
+  static display({ period, multiplier }: CEArgs): string {
+    return `CE(${period}, ${multiplier})`;
+  }
   static from({ period, multiplier, atr, min, max }: CEArgs): CE {
     return new CE(
       period,

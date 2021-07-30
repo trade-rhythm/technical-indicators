@@ -10,8 +10,8 @@ export default class Cross implements Serializable<CrossArgs> {
   constructor(isOver?: boolean) {
     this.isOver = isOver;
   }
-  display(value: string): string {
-    return `CROSS(${value})`;
+  toString(): string {
+    return `CROSS()`;
   }
   cross(val1: number, val2: number): boolean {
     const prev = this.isOver;
@@ -55,6 +55,10 @@ export default class Cross implements Serializable<CrossArgs> {
     };
   }
   static key = "finance.tr.Cross";
+  static display(_: CrossArgs, value: string, value2: string): string {
+    const input = value2 ? `${value}, ${value2}` : value;
+    return `CROSS(${input})`;
+  }
   static from({ isOver }: CrossArgs): Cross {
     return new Cross(isOver);
   }

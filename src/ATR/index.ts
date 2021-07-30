@@ -14,8 +14,8 @@ export default class ATR implements Indicator<ATRArgs> {
     this.ema = typeof ema === "number" ? new EMA(ema) : ema;
     this.tr = tr;
   }
-  display(value: string): string {
-    return `ATR(${this.ema.period}, ${value})`;
+  toString(): string {
+    return `ATR(${this.ema.period})`;
   }
   next(value: number): number {
     return this.ema.next(this.tr.next(value));
@@ -31,6 +31,9 @@ export default class ATR implements Indicator<ATRArgs> {
     };
   }
   static key = "finance.tr.ATR";
+  static display({ ema }: ATRArgs): string {
+    return `ATR(${ema.period})`;
+  }
   static from({ ema, tr }: ATRArgs): ATR {
     return new ATR(EMA.from(ema), TR.from(tr));
   }

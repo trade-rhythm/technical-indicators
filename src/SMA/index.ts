@@ -28,8 +28,8 @@ export default class SMA implements Indicator<SMAArgs> {
       this.window.init(0);
     }
   }
-  display(value: string): string {
-    return `SMA(${this.period}, ${value})`;
+  toString(): string {
+    return `SMA(${this.period})`;
   }
   next(value: number): number {
     const prev = this.window.push(value);
@@ -48,10 +48,13 @@ export default class SMA implements Indicator<SMAArgs> {
       period: this.period,
       window: this.window.toJSON(),
       sum: this.sum,
-      count: this.count
+      count: this.count,
     };
   }
   static key = "finance.tr.SMA";
+  static display({ period }: SMAArgs, value: string = 'CLOSE'): string {
+    return `SMA(${period}, ${value})`;
+  }
   static from({ period, window, sum, count }: SMAArgs): SMA {
     return new SMA(period, Window.from(window), sum, count);
   }

@@ -27,8 +27,8 @@ export default class MACD implements Indicator<MACDArgs, MACDOutput> {
     this.slow = typeof slow === "number" ? new EMA(slow) : slow;
     this.signal = typeof signal === "number" ? new EMA(signal) : signal;
   }
-  display(value: string): string {
-    return `MACD(${this.fast.period}, ${this.slow.period}, ${this.signal.period}, ${value})`;
+  toString(): string {
+    return `MACD(${this.fast.period}, ${this.slow.period}, ${this.signal.period})`;
   }
   next(value: number): MACDOutput {
     const fast = this.fast.next(value);
@@ -41,7 +41,7 @@ export default class MACD implements Indicator<MACDArgs, MACDOutput> {
     return {
       macd,
       signal,
-      histogram
+      histogram,
     };
   }
   nextBar(bar: Close): MACDOutput {
@@ -52,10 +52,13 @@ export default class MACD implements Indicator<MACDArgs, MACDOutput> {
       $type: MACD.key,
       fast: this.fast,
       slow: this.slow,
-      signal: this.signal
+      signal: this.signal,
     };
   }
   static key = "finance.tr.MACD";
+  static display({ fast, slow, signal }: MACDArgs, value: string = 'CLOSE'): string {
+    return `MACD(${fast.period}, ${slow.period}, ${signal.period}, ${value})`;
+  }
   static from({ fast, slow, signal }: MACDArgs): MACD {
     return new MACD(EMA.from(fast), EMA.from(slow), EMA.from(signal));
   }

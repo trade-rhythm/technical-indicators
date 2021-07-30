@@ -44,16 +44,19 @@ These features are helpful in scenarios when you want to calculate an indicator'
 > Probably more!
 
 ### Others
+
 - Window
 
 ## Usage
+
 ### Node
+
 ```js
-import { EMA, Cross, parse } from '@trade-rhythm/technical-indicators';
+import { EMA, Cross, parse } from "@trade-rhythm/technical-indicators";
 
 // init some indicators
 const ema = new EMA(9);
-const cross = new Cross()
+const cross = new Cross();
 
 // do something with them
 function handleNewData(bar) {
@@ -64,7 +67,7 @@ function handleNewData(bar) {
 }
 
 // serialize indicators to JSON
-const state = {ema, cross};
+const state = { ema, cross };
 const json = JSON.stringify(state);
 
 // deserialize
@@ -73,13 +76,16 @@ const newState = parse(json);
 
 > You can also import indicators individually with `import EMA from '@trade-rhythm/technical-indicators/dist/EMA`
 
-
 ### Deno / Browser
+
 ```js
-import { EMA, Cross, parse } from 'https://unpkg.com/@trade-rhythm/technical-indicators';
+import {
+  EMA,
+  Cross,
+  parse,
+} from "https://unpkg.com/@trade-rhythm/technical-indicators";
 ```
 
 ## Acknowledgements
 
 - Most of these indicators are a port from this awesome library in Rust: https://github.com/greyblake/ta-rs
-
