@@ -55,6 +55,11 @@ export default class CE implements Indicator<CEArgs, Chandelier> {
       short: min + atr,
     };
   }
+  reset(): void {
+    this.atr.reset();
+    this.min.reset();
+    this.max.reset();
+  }
   toString(): string {
     return `CE(${this.period}, ${this.multiplier})`;
   }
@@ -68,7 +73,7 @@ export default class CE implements Indicator<CEArgs, Chandelier> {
       min: this.min.toJSON(),
     };
   }
-  static key = "finance.tr.CE";
+  static readonly key = "finance.tr.CE";
   static display({ period, multiplier }: CEArgs): string {
     return `CE(${period}, ${multiplier})`;
   }

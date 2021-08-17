@@ -1,4 +1,5 @@
 import type { JSONDef, Indicator, High, Low, Close, Volume } from "../types";
+import { NextNotImplemented } from "../utils";
 
 export interface MFIArgs {
   period: number;
@@ -36,7 +37,7 @@ export default class MFI implements Indicator<MFIArgs> {
     this.queue = queue;
   }
   next(): number {
-    throw Error("MFI: next method not implemented");
+    throw new NextNotImplemented("MFI");
   }
   nextBar(bar: High & Low & Close & Volume): number {
     const tp = (bar.high + bar.low + bar.close) / 3;
@@ -75,6 +76,14 @@ export default class MFI implements Indicator<MFIArgs> {
       (this.totalPositive / (this.totalPositive + this.totalNegative)) * 100
     );
   }
+  reset(): void {
+    this.index = 0;
+    this.count = 0;
+    this.prevPrice = 0;
+    this.totalPositive = 0;
+    this.totalNegative = 0;
+    this.queue = new Array(this.period).fill(0);
+  }
   toString(): string {
     return `MFI(${this.period})`;
   }
@@ -90,7 +99,7 @@ export default class MFI implements Indicator<MFIArgs> {
       queue: this.queue,
     };
   }
-  static key = "finance.tr.MFI";
+  static readonly key = "finance.tr.MFI";
   static display({ period }: MFIArgs): string {
     return `MFI(${period})`;
   }

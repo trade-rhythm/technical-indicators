@@ -38,6 +38,10 @@ export default class ER implements Indicator<ERArgs> {
   nextBar(bar: Close): number {
     return this.next(bar.close);
   }
+  reset(): void {
+    this.count = 0;
+    this.window.init(0);
+  }
   toString(): string {
     return `ER(${this.period})`;
   }
@@ -49,8 +53,8 @@ export default class ER implements Indicator<ERArgs> {
       window: this.window.toJSON(),
     };
   }
-  static key = "finance.tr.ER";
-  static display({ period }: ERArgs, value: string = 'CLOSE'): string {
+  static readonly key = "finance.tr.ER";
+  static display({ period }: ERArgs, value: string = "CLOSE"): string {
     return `ER(${period}, ${value})`;
   }
   static from({ period, count, window }: ERArgs): ER {

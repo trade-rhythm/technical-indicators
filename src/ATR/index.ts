@@ -14,14 +14,18 @@ export default class ATR implements Indicator<ATRArgs> {
     this.ema = typeof ema === "number" ? new EMA(ema) : ema;
     this.tr = tr;
   }
-  toString(): string {
-    return `ATR(${this.ema.period})`;
-  }
   next(value: number): number {
     return this.ema.next(this.tr.next(value));
   }
   nextBar(bar: High & Low & Close): number {
     return this.ema.next(this.tr.nextBar(bar));
+  }
+  reset(): void {
+    this.ema.reset();
+    this.tr.reset();
+  }
+  toString(): string {
+    return `ATR(${this.ema.period})`;
   }
   toJSON(): JSONDef<ATRArgs> {
     return {
@@ -30,7 +34,7 @@ export default class ATR implements Indicator<ATRArgs> {
       tr: this.tr.toJSON(),
     };
   }
-  static key = "finance.tr.ATR";
+  static readonly key = "finance.tr.ATR";
   static display({ ema }: ATRArgs): string {
     return `ATR(${ema.period})`;
   }

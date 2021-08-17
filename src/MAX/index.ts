@@ -38,6 +38,11 @@ export default class MAX implements Indicator<MAXArgs> {
   nextBar(bar: High): number {
     return this.next(bar.high);
   }
+  reset(): void {
+    this.maxIdx = 0;
+    this.curIdx = 0;
+    this.queue = new Array(this.period).fill(Number.NEGATIVE_INFINITY);
+  }
   findMaxIdx(): number {
     let max = Number.NEGATIVE_INFINITY;
     let index = 0;
@@ -61,7 +66,7 @@ export default class MAX implements Indicator<MAXArgs> {
       queue: this.queue,
     };
   }
-  static key = "finance.tr.MAX";
+  static readonly key = "finance.tr.MAX";
   static display({ period }: MAXArgs, value: string = "HIGH"): string {
     return `MAX(${period}, ${value})`;
   }

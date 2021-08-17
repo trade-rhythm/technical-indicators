@@ -47,6 +47,11 @@ export default class MACD implements Indicator<MACDArgs, MACDOutput> {
   nextBar(bar: Close): MACDOutput {
     return this.next(bar.close);
   }
+  reset(): void {
+    this.fast.reset();
+    this.slow.reset();
+    this.signal.reset();
+  }
   toJSON(): JSONDef<MACDArgs> {
     return {
       $type: MACD.key,
@@ -55,8 +60,11 @@ export default class MACD implements Indicator<MACDArgs, MACDOutput> {
       signal: this.signal,
     };
   }
-  static key = "finance.tr.MACD";
-  static display({ fast, slow, signal }: MACDArgs, value: string = 'CLOSE'): string {
+  static readonly key = "finance.tr.MACD";
+  static display(
+    { fast, slow, signal }: MACDArgs,
+    value: string = "CLOSE"
+  ): string {
     return `MACD(${fast.period}, ${slow.period}, ${signal.period}, ${value})`;
   }
   static from({ fast, slow, signal }: MACDArgs): MACD {

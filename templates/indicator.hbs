@@ -8,15 +8,19 @@ export default class {{name}} implements Indicator<{{name}}Args> {
   nextBar(bar: Close): number {
     return this.next(bar.close);
   }
-  display(value: string): string {
-    return `{{name}}(${value})`;
+  reset(): void {}
+  toString(): string {
+    return `{{name}}()`;
   }
   toJSON(): JSONDef<{{name}}Args> { 
     return { 
       $type: {{name}}.key,
     };
   } 
-  static key = "finance.tr.{{name}}";
+  static display({}: {{name}}Args, value: string): string {
+    return `{{name}}(${value})`;
+  }
+  static readonly key = "finance.tr.{{name}}";
   static from({}: {{name}}Args): {{name}} { 
     return new {{name}}();
   }

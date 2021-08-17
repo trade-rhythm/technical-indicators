@@ -1,17 +1,13 @@
 name: Jest
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Install globals
-      run: sudo npm i -g ts-node typescript @types/node
-    - name: Install modules
-      run: npm ci
-    - name: Run tests
-      run: npm test
+      - uses: actions/checkout@v2
+      - run: npm ci
+      - run: npm test

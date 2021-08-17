@@ -50,6 +50,10 @@ export default class KC implements Indicator<KCArgs, KCOutput> {
       lower: avg - atr * this.multiplier,
     };
   }
+  reset(): void {
+    this.atr.reset();
+    this.ema.reset();
+  }
   toString(): string {
     return `KC(${this.period}, ${this.multiplier})`;
   }
@@ -62,7 +66,7 @@ export default class KC implements Indicator<KCArgs, KCOutput> {
       ema: this.ema.toJSON(),
     };
   }
-  static key = "finance.tr.KC";
+  static readonly key = "finance.tr.KC";
   static display({ period, multiplier }: KCArgs): string {
     return `KC(${period}, ${multiplier})`;
   }

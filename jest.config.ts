@@ -194,4 +194,9 @@ export default {
   // Whether to use watchman for file crawling
   // watchman: true,
   setupFilesAfterEnv: ["./test.helpers.js"],
+
+  watchPlugins: [
+    "jest-watch-typeahead/filename",
+    "jest-watch-typeahead/testname",
+  ],
 };

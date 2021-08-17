@@ -38,6 +38,11 @@ export default class MIN implements Indicator<MINArgs> {
   nextBar(bar: Low): number {
     return this.next(bar.low);
   }
+  reset(): void {
+    this.minIdx = 0;
+    this.curIdx = 0;
+    this.queue = new Array(this.period).fill(Number.POSITIVE_INFINITY);
+  }
   findMinIdx(): number {
     let min = Number.POSITIVE_INFINITY;
     let index = 0;
@@ -58,10 +63,10 @@ export default class MIN implements Indicator<MINArgs> {
       period: this.period,
       minIdx: this.minIdx,
       curIdx: this.curIdx,
-      queue: this.queue
+      queue: this.queue,
     };
   }
-  static key = "finance.tr.MIN";
+  static readonly key = "finance.tr.MIN";
   static display({ period }: MINArgs, value: string = "LOW"): string {
     return `MIN(${period}, ${value})`;
   }
@@ -70,7 +75,7 @@ export default class MIN implements Indicator<MINArgs> {
       period,
       minIdx,
       curIdx,
-      queue.map(v => v ?? Number.POSITIVE_INFINITY)
+      queue.map((v) => v ?? Number.POSITIVE_INFINITY)
     );
   }
 }

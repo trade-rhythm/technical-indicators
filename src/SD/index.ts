@@ -62,6 +62,12 @@ export default class SD implements Indicator<SDArgs> {
   nextBar(bar: Close): number {
     return this.next(bar.close);
   }
+  reset(): void {
+    this.count = 0;
+    this.m = 0;
+    this.m2 = 0;
+    this.window.init(0);
+  }
   toJSON(): JSONDef<SDArgs> {
     return {
       $type: SD.key,
@@ -69,10 +75,10 @@ export default class SD implements Indicator<SDArgs> {
       count: this.count,
       m: this.m,
       m2: this.m2,
-      window: this.window.toJSON()
+      window: this.window.toJSON(),
     };
   }
-  static key = "finance.tr.SD";
+  static readonly key = "finance.tr.SD";
   static display({ period }: SDArgs, value: string = "CLOSE"): string {
     return `SD(${period}, ${value})`;
   }

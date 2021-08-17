@@ -1,4 +1,5 @@
 import type { JSONDef, Indicator, Close, Volume } from "../types";
+import { NextNotImplemented } from "../utils";
 
 export interface OBVArgs {
   obv: number;
@@ -13,7 +14,7 @@ export default class OBV implements Indicator<OBVArgs> {
     this.prevClose = prevClose;
   }
   next(): number {
-    throw Error("OBV: next method not implemented");
+    throw new NextNotImplemented("OBV");
   }
   nextBar(bar: Close & Volume): number {
     if (bar.close > this.prevClose) {
@@ -23,6 +24,10 @@ export default class OBV implements Indicator<OBVArgs> {
     }
     this.prevClose = bar.close;
     return this.obv;
+  }
+  reset(): void {
+    this.obv = 0;
+    this.prevClose = 0;
   }
   toString(): string {
     return `OBV()`;
@@ -34,7 +39,7 @@ export default class OBV implements Indicator<OBVArgs> {
       prevClose: this.prevClose,
     };
   }
-  static key = "finance.tr.OBV";
+  static readonly key = "finance.tr.OBV";
   static display(): string {
     return `OBV()`;
   }

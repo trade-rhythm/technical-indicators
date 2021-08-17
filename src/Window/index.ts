@@ -70,7 +70,7 @@ export default class Window<T = number> implements Serializable<WindowArgs<T>> {
       needsInit: this.needsInit,
     };
   }
-  static key = "finance.tr.Window";
+  static readonly key = "finance.tr.Window";
   static display<T = number>({ size }: WindowArgs<T>): string {
     return `Window(${size})`;
   }
