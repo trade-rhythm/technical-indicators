@@ -10,9 +10,10 @@ Most libraries I could find assume the user has all the data up-front (like when
 
 1. All indicators can be serialized and and deserialed.
 2. All indicators follow the "iterator" pattern (where you don't need all the data up front).
-3. All indicators can be "reset" using a `reset()` method.
 
 These features are helpful in scenarios when you want to calculate an indicator's value over some streaing data and the data comes in over long periods of time. For example, lets say that you wanted to calculate an `EMA(200)` of some dataset where new data comes in ever hour (like an hour bar for example). With this library, you can instanciate your indicator, pass in the next value, and then serialize the indicator back to a DB with out having to keep the indicator in memory the whole time it is being calculated.
+
+Also, all indicators can be reset with the `reset()` method. 
 
 ## Roadmap
 
