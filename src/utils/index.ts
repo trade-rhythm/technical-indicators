@@ -30,3 +30,21 @@ export const lte = (a: number, b: number, E: number = calcE(a, b)): boolean => {
 export const gte = (a: number, b: number, E: number = calcE(a, b)): boolean => {
   return eq(a, b, E) || gt(a, b, E);
 };
+
+export class NextNotImplemented extends Error {
+  indicator: string;
+  constructor(
+    indicator: string,
+    ...params: ConstructorParameters<typeof Error>
+  ) {
+    super(...params);
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, NextNotImplemented);
+    }
+    this.indicator = indicator;
+    this.name = "NotImplemented";
+  }
+  get message(): string {
+    return `"next" method is not implemented on "${this.indicator}". Please try "nextBar" instead"`;
+  }
+}

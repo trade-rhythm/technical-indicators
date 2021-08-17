@@ -42,6 +42,11 @@ export default class MAD implements Indicator<MADArgs> {
   nextBar(bar: Close): number {
     return this.next(bar.close);
   }
+  reset(): void {
+    this.sum = 0;
+    this.count = 0;
+    this.window.init(0);
+  }
   toString(): string {
     return `MAD(${this.period})`;
   }
@@ -54,8 +59,8 @@ export default class MAD implements Indicator<MADArgs> {
       window: this.window.toJSON(),
     };
   }
-  static key = "finance.tr.MAD";
-  static display({ period }: MADArgs, value: string = 'CLOSE'): string {
+  static readonly key = "finance.tr.MAD";
+  static display({ period }: MADArgs, value: string = "CLOSE"): string {
     return `MAD(${period}, ${value})`;
   }
   static from({ period, sum, count, window }: MADArgs): MAD {

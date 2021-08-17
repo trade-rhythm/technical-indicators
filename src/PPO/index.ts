@@ -37,11 +37,16 @@ export default class PPO implements Indicator<PPOArgs, PPOOut> {
     return {
       ppo,
       signal,
-      histogram
+      histogram,
     };
   }
   nextBar(bar: Close): PPOOut {
     return this.next(bar.close);
+  }
+  reset(): void {
+    this.fast.reset();
+    this.slow.reset();
+    this.signal.reset();
   }
   toString(): string {
     return `PPO(${this.fast.period}, ${this.slow.period}, ${this.signal.period})`;
@@ -51,10 +56,10 @@ export default class PPO implements Indicator<PPOArgs, PPOOut> {
       $type: PPO.key,
       fast: this.fast.toJSON(),
       slow: this.slow.toJSON(),
-      signal: this.signal.toJSON()
+      signal: this.signal.toJSON(),
     };
   }
-  static key = "finance.tr.PPO";
+  static readonly key = "finance.tr.PPO";
   static display(
     { fast, slow, signal }: PPOArgs,
     value: string = "CLOSE"

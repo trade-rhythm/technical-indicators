@@ -29,13 +29,16 @@ export default class TR implements Indicator<TRArgs> {
       return Math.max(dist1, dist2, dist3);
     }
   }
+  reset(): void {
+    this.prev = null;
+  }
   toString(): string {
     return `TR()`;
   }
   toJSON(): JSONDef<TRArgs> {
     return { $type: TR.key, prev: this.prev };
   }
-  static key = "finance.tr.TR";
+  static readonly key = "finance.tr.TR";
   static display(): string {
     return `TR()`;
   }

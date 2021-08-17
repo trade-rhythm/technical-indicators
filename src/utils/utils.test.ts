@@ -1,4 +1,4 @@
-import { gt, lt, eq, gte, lte, neq } from "./index";
+import { gt, lt, eq, gte, lte, neq, NextNotImplemented } from "./index";
 
 // note that because of floating point math
 // 0.2 + 0.1 = 0.30000000000000004
@@ -29,4 +29,13 @@ test("greater than", () => {
 
 test("greater than or equals", () => {
   expect(gte(0.2 + 0.1, 0.3)).toBe(true);
+});
+
+test("NotImplemented", () => {
+  const t = () => {
+    throw new NextNotImplemented("EX");
+  };
+  expect(t).toThrow(
+    `"next" method is not implemented on "EX". Please try "nextBar" instead`
+  );
 });

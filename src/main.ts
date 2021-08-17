@@ -1,8 +1,11 @@
+import ADX from "./ADX";
+import AO from "./AO";
 import ATR from "./ATR";
 import BB from "./BB";
 import CCI from "./CCI";
 import CE from "./CE";
 import Cross from "./Cross";
+import DMI from "./DMI";
 import EMA from "./EMA";
 import ER from "./ER";
 import FAST_STOCH from "./FAST_STOCH";
@@ -23,12 +26,15 @@ import TR from "./TR";
 import Window from "./Window";
 import { SerializableStatic } from "./types";
 
-const collection: Record<string, SerializableStatic> = {
+const collection = {
+  [ADX.key]: ADX,
+  [AO.key]: AO,
   [ATR.key]: ATR,
   [BB.key]: BB,
   [CCI.key]: CCI,
   [CE.key]: CE,
   [Cross.key]: Cross,
+  [DMI.key]: DMI,
   [ER.key]: ER,
   [EMA.key]: EMA,
   [FAST_STOCH.key]: FAST_STOCH,
@@ -47,11 +53,11 @@ const collection: Record<string, SerializableStatic> = {
   [SMA.key]: SMA,
   [TR.key]: TR,
   [Window.key]: Window,
-};
+} as const;
 
 const parse = (json: string): unknown => {
   return JSON.parse(json, (_, value) => {
-    const key = value?.$type;
+    const key = value?.$type as keyof typeof collection | undefined;
     if (key && key in collection) {
       return collection[key].from(value);
     }
@@ -59,13 +65,21 @@ const parse = (json: string): unknown => {
   });
 };
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const __assertStatic: Record<keyof typeof collection, SerializableStatic> =
+  collection;
+
 export { lt, lte, gt, gte, eq, neq } from "./utils";
 export {
+  ADX,
+  AO,
   ATR,
   BB,
   CCI,
   CE,
   Cross,
+  DMI,
   ER,
   EMA,
   FAST_STOCH,

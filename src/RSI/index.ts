@@ -44,6 +44,10 @@ export default class RSI implements Indicator<RSIArgs> {
   nextBar(bar: Close): number {
     return this.next(bar.close);
   }
+  reset(): void {
+    this.index = 0;
+    this.window = new Window(this.period + 1);
+  }
   toJSON(): JSONDef<RSIArgs> {
     return {
       $type: RSI.key,
@@ -52,8 +56,8 @@ export default class RSI implements Indicator<RSIArgs> {
       window: this.window.toJSON(),
     };
   }
-  static key = "finance.tr.RSI";
-  static display({ period }: RSIArgs, value: string = 'CLOSE'): string {
+  static readonly key = "finance.tr.RSI";
+  static display({ period }: RSIArgs, value: string = "CLOSE"): string {
     return `RSI(${period}, ${value})`;
   }
   static from({ period, index, window }: RSIArgs): RSI {

@@ -22,9 +22,6 @@ export default class BB implements Indicator<BBArgs, Band> {
     this.multiplier = multiplier;
     this.sd = sd;
   }
-  toString(): string {
-    return `BB(${this.period}, ${this.multiplier})`;
-  }
   next(value: number): Band {
     const sd = this.sd.next(value);
     return {
@@ -36,6 +33,12 @@ export default class BB implements Indicator<BBArgs, Band> {
   nextBar(bar: Close): Band {
     return this.next(bar.close);
   }
+  reset(): void {
+    this.sd.reset();
+  }
+  toString(): string {
+    return `BB(${this.period}, ${this.multiplier})`;
+  }
   toJSON(): JSONDef<BBArgs> {
     return {
       $type: BB.key,
@@ -44,8 +47,11 @@ export default class BB implements Indicator<BBArgs, Band> {
       sd: this.sd.toJSON(),
     };
   }
-  static key = "finance.tr.BB";
-  static display({ period, multiplier }: BBArgs, value: string = "CLOSE"): string {
+  static readonly key = "finance.tr.BB";
+  static display(
+    { period, multiplier }: BBArgs,
+    value: string = "CLOSE"
+  ): string {
     return `BB(${period}, ${multiplier}, ${value})`;
   }
   static from({ period, multiplier, sd }: BBArgs): BB {

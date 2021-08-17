@@ -42,6 +42,11 @@ export default class SMA implements Indicator<SMAArgs> {
   nextBar(bar: Close): number {
     return this.next(bar.close);
   }
+  reset(): void {
+    this.sum = 0;
+    this.count = 0;
+    this.window.init(0);
+  }
   toJSON(): JSONDef<SMAArgs> {
     return {
       $type: SMA.key,
@@ -51,8 +56,8 @@ export default class SMA implements Indicator<SMAArgs> {
       count: this.count,
     };
   }
-  static key = "finance.tr.SMA";
-  static display({ period }: SMAArgs, value: string = 'CLOSE'): string {
+  static readonly key = "finance.tr.SMA";
+  static display({ period }: SMAArgs, value: string = "CLOSE"): string {
     return `SMA(${period}, ${value})`;
   }
   static from({ period, window, sum, count }: SMAArgs): SMA {

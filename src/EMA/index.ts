@@ -33,6 +33,9 @@ export default class EMA implements Indicator<EMAArgs> {
   nextBar(bar: Close): number {
     return this.next(bar.close);
   }
+  reset(): void {
+    return (this.current = null);
+  }
   toJSON(): JSONDef<EMAArgs> {
     return {
       $type: EMA.key,
@@ -41,8 +44,8 @@ export default class EMA implements Indicator<EMAArgs> {
       current: this.current,
     };
   }
-  static key = "finance.tr.EMA";
-  static display({ period }: EMAArgs, value: string = 'CLOSE'): string {
+  static readonly key = "finance.tr.EMA";
+  static display({ period }: EMAArgs, value: string = "CLOSE"): string {
     return `EMA(${period}, ${value})`;
   }
   static from({ period, k, current }: EMAArgs): EMA {

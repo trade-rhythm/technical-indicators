@@ -2,7 +2,7 @@
 
 [![Jest](https://github.com/nicksrandall/technical-indicators/actions/workflows/main.yml/badge.svg)](https://github.com/nicksrandall/technical-indicators/actions/workflows/main.yml)
 
-This is a work in progress. Stay tuned!
+A ~4kb (min, br) library that helps with technical analysis of financial data.
 
 ## Why another technical indicator library?
 
@@ -10,16 +10,20 @@ Most libraries I could find assume the user has all the data up-front (like when
 
 1. All indicators can be serialized and and deserialed.
 2. All indicators follow the "iterator" pattern (where you don't need all the data up front).
+3. All indicators can be "reset" using a `reset()` method.
 
 These features are helpful in scenarios when you want to calculate an indicator's value over some streaing data and the data comes in over long periods of time. For example, lets say that you wanted to calculate an `EMA(200)` of some dataset where new data comes in ever hour (like an hour bar for example). With this library, you can instanciate your indicator, pass in the next value, and then serialize the indicator back to a DB with out having to keep the indicator in memory the whole time it is being calculated.
 
 ## Roadmap
 
+- [x] [ADX](https://www.investopedia.com/terms/a/adx.asp)
+- [x] [AO](https://www.moneycontrol.com/news/business/markets/technical-classroom-how-to-use-awesome-oscillator-in-trading-strategy-4201371.html)
 - [x] [ATR](https://www.investopedia.com/terms/a/atr.asp)
 - [x] [BB](https://www.investopedia.com/terms/b/bollingerbands.asp)
 - [x] [CCI](https://www.investopedia.com/terms/c/commoditychannelindex.asp)
 - [x] [CE](https://school.stockcharts.com/doku.php?id=technical_indicators:chandelier_exit)
 - [x] [Cross](https://www.investopedia.com/terms/c/crossover.asp)
+- [x] [DMI](https://www.investopedia.com/terms/d/dmi.asp)
 - [x] [EMA](https://www.investopedia.com/terms/e/ema.asp)
 - [x] [ER](https://www.investopedia.com/terms/e/efficiencyratio.asp)
 - [x] [FAST_STOCH](https://www.investopedia.com/terms/s/stochasticoscillator.asp)
@@ -37,13 +41,11 @@ These features are helpful in scenarios when you want to calculate an indicator'
 - [x] [SLOW_STOCH](https://www.investopedia.com/terms/s/stochasticoscillator.asp)
 - [x] [SMA](https://www.investopedia.com/terms/s/sma.asp)
 - [x] TR - True Range (used by ATR)
-- [ ] [ADX](https://www.investopedia.com/terms/a/adx.asp)
-- [ ] [AO](https://www.moneycontrol.com/news/business/markets/technical-classroom-how-to-use-awesome-oscillator-in-trading-strategy-4201371.html)
 - [ ] [KST](https://www.investopedia.com/terms/k/know-sure-thing-kst.asp)
 - [ ] [PSAR](https://www.investopedia.com/terms/p/parabolicindicator.asp)
 - [ ] [TRIX](https://www.investopedia.com/terms/t/trix.asp)
 
-> Probably more!
+> Probably more! If you have a request, please create an issue. :)
 
 ### Others
 

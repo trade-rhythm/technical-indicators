@@ -29,6 +29,10 @@ export default class FAST_STOCH implements Indicator<FAST_STOCHArgs> {
     if (min === max) return 50;
     return ((bar.close - min) / (max - min)) * 100;
   }
+  reset(): void {
+    this.min.reset();
+    this.max.reset();
+  }
   toString(): string {
     return `FAST_STOCH(${this.period})`;
   }
@@ -40,7 +44,7 @@ export default class FAST_STOCH implements Indicator<FAST_STOCHArgs> {
       max: this.max.toJSON(),
     };
   }
-  static key = "finance.tr.FAST_STOCH";
+  static readonly key = "finance.tr.FAST_STOCH";
   static display({ period }: FAST_STOCHArgs): string {
     return `FAST_STOCH(${period})`;
   }

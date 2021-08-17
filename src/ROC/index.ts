@@ -34,6 +34,10 @@ export default class ROC implements Indicator<ROCArgs> {
   nextBar(bar: Close): number {
     return this.next(bar.close);
   }
+  reset(): void {
+    this.count = 0;
+    this.window.init(0);
+  }
   toString(): string {
     return `ROC(${this.period})`;
   }
@@ -45,8 +49,8 @@ export default class ROC implements Indicator<ROCArgs> {
       window: this.window.toJSON(),
     };
   }
-  static key = "finance.tr.ROC";
-  static display({ period }: ROCArgs, value: string = 'CLOSE'): string {
+  static readonly key = "finance.tr.ROC";
+  static display({ period }: ROCArgs, value: string = "CLOSE"): string {
     return `ROC(${period}, ${value})`;
   }
   static from({ period, count, window }: ROCArgs): ROC {

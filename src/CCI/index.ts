@@ -35,6 +35,10 @@ export default class CCI implements Indicator<CCIArgs> {
 
     return (tp - sma) / (mad * 0.015);
   }
+  reset(): void {
+    this.sma.reset();
+    this.mad.reset();
+  }
   toString(): string {
     return `CCI(${this.sma.period})`;
   }
@@ -45,7 +49,7 @@ export default class CCI implements Indicator<CCIArgs> {
       mad: this.mad.toJSON(),
     };
   }
-  static key = "finance.tr.CCI";
+  static readonly key = "finance.tr.CCI";
   static display({ sma }: CCIArgs): string {
     return `CCI(${sma.period})`;
   }

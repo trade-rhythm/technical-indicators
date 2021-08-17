@@ -26,10 +26,11 @@ export interface Serializable<T> {
 export interface Indicator<T, V = number, VB = V> extends Serializable<T> {
   next(v: number): V | null;
   nextBar(v: High | Low | Open | Close): VB | null;
+  reset(): void;
 }
 
 export interface SerializableStatic<T = unknown> {
-  key: string;
+  readonly key: string;
   display(props: T, value?: string, value2?: string): string;
   from(props: T): Serializable<T>;
 }
