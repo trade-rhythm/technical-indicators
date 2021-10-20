@@ -17,12 +17,12 @@ export default class OBV implements Indicator<OBVArgs> {
     throw new NextNotImplemented("OBV");
   }
   nextBar(bar: Close & Volume): number {
-    if (bar.close > this.prevClose) {
-      this.obv += bar.volume;
-    } else if (bar.close < this.prevClose) {
-      this.obv -= bar.volume;
+    if (bar.c > this.prevClose) {
+      this.obv += bar.v;
+    } else if (bar.c < this.prevClose) {
+      this.obv -= bar.v;
     }
-    this.prevClose = bar.close;
+    this.prevClose = bar.c;
     return this.obv;
   }
   reset(): void {

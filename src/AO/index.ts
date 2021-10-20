@@ -18,7 +18,7 @@ export default class AO implements Indicator<AOArgs> {
     throw new NextNotImplemented("AO");
   }
   nextBar(bar: High & Low): number {
-    const median = (bar.high + bar.low) / 2;
+    const median = (bar.h + bar.l) / 2;
     return this.fast.next(median) - this.slow.next(median);
   }
   reset(): void {

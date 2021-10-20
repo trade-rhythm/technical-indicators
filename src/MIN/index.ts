@@ -36,7 +36,7 @@ export default class MIN implements Indicator<MINArgs> {
     return this.queue[this.minIdx];
   }
   nextBar(bar: Low): number {
-    return this.next(bar.low);
+    return this.next(bar.l);
   }
   reset(): void {
     this.minIdx = 0;
@@ -67,7 +67,7 @@ export default class MIN implements Indicator<MINArgs> {
     };
   }
   static readonly key = "finance.tr.MIN";
-  static display({ period }: MINArgs, value: string = "LOW"): string {
+  static display({ period }: MINArgs, value = "LOW"): string {
     return `MIN(${period}, ${value})`;
   }
   static from({ period, minIdx, curIdx, queue }: MINArgs): MIN {

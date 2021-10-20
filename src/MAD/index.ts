@@ -40,7 +40,7 @@ export default class MAD implements Indicator<MADArgs> {
     return mad / this.count;
   }
   nextBar(bar: Close): number {
-    return this.next(bar.close);
+    return this.next(bar.c);
   }
   reset(): void {
     this.sum = 0;
@@ -60,7 +60,7 @@ export default class MAD implements Indicator<MADArgs> {
     };
   }
   static readonly key = "finance.tr.MAD";
-  static display({ period }: MADArgs, value: string = "CLOSE"): string {
+  static display({ period }: MADArgs, value = "CLOSE"): string {
     return `MAD(${period}, ${value})`;
   }
   static from({ period, sum, count, window }: MADArgs): MAD {

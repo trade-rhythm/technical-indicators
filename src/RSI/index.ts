@@ -42,7 +42,7 @@ export default class RSI implements Indicator<RSIArgs> {
     return 100 - 100 / (1 + gain / this.period / (loss / this.period));
   }
   nextBar(bar: Close): number {
-    return this.next(bar.close);
+    return this.next(bar.c);
   }
   reset(): void {
     this.index = 0;
@@ -57,7 +57,7 @@ export default class RSI implements Indicator<RSIArgs> {
     };
   }
   static readonly key = "finance.tr.RSI";
-  static display({ period }: RSIArgs, value: string = "CLOSE"): string {
+  static display({ period }: RSIArgs, value = "CLOSE"): string {
     return `RSI(${period}, ${value})`;
   }
   static from({ period, index, window }: RSIArgs): RSI {

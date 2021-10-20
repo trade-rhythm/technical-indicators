@@ -36,7 +36,7 @@ export default class ER implements Indicator<ERArgs> {
     return Math.abs(oldest - value) / volatility;
   }
   nextBar(bar: Close): number {
-    return this.next(bar.close);
+    return this.next(bar.c);
   }
   reset(): void {
     this.count = 0;
@@ -54,7 +54,7 @@ export default class ER implements Indicator<ERArgs> {
     };
   }
   static readonly key = "finance.tr.ER";
-  static display({ period }: ERArgs, value: string = "CLOSE"): string {
+  static display({ period }: ERArgs, value = "CLOSE"): string {
     return `ER(${period}, ${value})`;
   }
   static from({ period, count, window }: ERArgs): ER {

@@ -8,14 +8,14 @@ test("OBV calculates correctly", () => {
     [5, 5000, 6000],
     [4, 9000, -3000],
     [4, 4000, -3000],
-  ].forEach(([close, volume, result]) => {
-    expect(obv.nextBar({ close, volume })).toBe(result);
+  ].forEach(([c, v, result]) => {
+    expect(obv.nextBar({ c, v })).toBe(result);
   });
 });
 
 test("OBV serializes/deserializes correctly", () => {
   const obv = new OBV();
-  obv.nextBar({ close: 5, volume: 5000 });
+  obv.nextBar({ c: 5, v: 5000 });
   const json = JSON.stringify(obv);
   const newOBV = OBV.from(JSON.parse(json));
   expect(newOBV).toEqual(obv);

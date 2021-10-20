@@ -12,16 +12,16 @@ test("AO calculates correctly", () => {
     [3, 2, 0.5],
     [2, 1, -0.3],
     [1, 0.5, -1.267],
-  ].forEach(([high, low, result]) => {
-    expect(+ao.nextBar({ high, low }).toFixed(3)).toBe(result);
+  ].forEach(([h, l, result]) => {
+    expect(+ao.nextBar({ h, l }).toFixed(3)).toBe(result);
   });
 });
 
 test("AO serializes/deserializes correctly", () => {
   const ao = new AO();
-  ao.nextBar({ high: 2, low: 1 });
-  ao.nextBar({ high: 2, low: 1 });
-  ao.nextBar({ high: 2, low: 1 });
+  ao.nextBar({ h: 2, l: 1 });
+  ao.nextBar({ h: 2, l: 1 });
+  ao.nextBar({ h: 2, l: 1 });
   const json = JSON.stringify(ao);
   const newAO = AO.from(JSON.parse(json));
   expect(newAO).toEqual(ao);

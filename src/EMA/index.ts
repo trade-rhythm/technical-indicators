@@ -31,7 +31,7 @@ export default class EMA implements Indicator<EMAArgs> {
     return this.current;
   }
   nextBar(bar: Close): number {
-    return this.next(bar.close);
+    return this.next(bar.c);
   }
   reset(): void {
     return (this.current = null);
@@ -45,7 +45,7 @@ export default class EMA implements Indicator<EMAArgs> {
     };
   }
   static readonly key = "finance.tr.EMA";
-  static display({ period }: EMAArgs, value: string = "CLOSE"): string {
+  static display({ period }: EMAArgs, value = "CLOSE"): string {
     return `EMA(${period}, ${value})`;
   }
   static from({ period, k, current }: EMAArgs): EMA {

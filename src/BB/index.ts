@@ -31,7 +31,7 @@ export default class BB implements Indicator<BBArgs, Band> {
     };
   }
   nextBar(bar: Close): Band {
-    return this.next(bar.close);
+    return this.next(bar.c);
   }
   reset(): void {
     this.sd.reset();
@@ -50,7 +50,7 @@ export default class BB implements Indicator<BBArgs, Band> {
   static readonly key = "finance.tr.BB";
   static display(
     { period, multiplier }: BBArgs,
-    value: string = "CLOSE"
+    value = "CLOSE"
   ): string {
     return `BB(${period}, ${multiplier}, ${value})`;
   }

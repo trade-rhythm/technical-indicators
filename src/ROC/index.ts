@@ -32,7 +32,7 @@ export default class ROC implements Indicator<ROCArgs> {
     return ((value - oldest) / oldest) * 100;
   }
   nextBar(bar: Close): number {
-    return this.next(bar.close);
+    return this.next(bar.c);
   }
   reset(): void {
     this.count = 0;
@@ -50,7 +50,7 @@ export default class ROC implements Indicator<ROCArgs> {
     };
   }
   static readonly key = "finance.tr.ROC";
-  static display({ period }: ROCArgs, value: string = "CLOSE"): string {
+  static display({ period }: ROCArgs, value = "CLOSE"): string {
     return `ROC(${period}, ${value})`;
   }
   static from({ period, count, window }: ROCArgs): ROC {

@@ -36,7 +36,7 @@ export default class MAX implements Indicator<MAXArgs> {
     return this.queue[this.maxIdx];
   }
   nextBar(bar: High): number {
-    return this.next(bar.high);
+    return this.next(bar.h);
   }
   reset(): void {
     this.maxIdx = 0;
@@ -67,7 +67,7 @@ export default class MAX implements Indicator<MAXArgs> {
     };
   }
   static readonly key = "finance.tr.MAX";
-  static display({ period }: MAXArgs, value: string = "HIGH"): string {
+  static display({ period }: MAXArgs, value = "HIGH"): string {
     return `MAX(${period}, ${value})`;
   }
   static from({ period, maxIdx, curIdx, queue }: MAXArgs): MAX {

@@ -48,3 +48,19 @@ export class NextNotImplemented extends Error {
     return `"next" method is not implemented on "${this.indicator}". Please try "nextBar" instead"`;
   }
 }
+
+export const BarWrapper = (data: {
+  h: number;
+  l: number;
+  c: number;
+  o: number;
+  t: number;
+  v: number;
+}) => ({
+  high: data.h,
+  low: data.l,
+  open: data.o,
+  close: data.c,
+  volume: data.v,
+  timestamp: new Date(data.t * 1000),
+});

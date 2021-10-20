@@ -40,7 +40,7 @@ export default class MFI implements Indicator<MFIArgs> {
     throw new NextNotImplemented("MFI");
   }
   nextBar(bar: High & Low & Close & Volume): number {
-    const tp = (bar.high + bar.low + bar.close) / 3;
+    const tp = (bar.h + bar.l + bar.c) / 3;
 
     this.index = this.index + 1 < this.period ? this.index + 1 : 0;
 
@@ -59,7 +59,7 @@ export default class MFI implements Indicator<MFIArgs> {
       }
     }
 
-    const mf = tp * bar.volume;
+    const mf = tp * bar.v;
     if (tp > this.prevPrice) {
       this.totalPositive += mf;
       this.queue[this.index] = mf;

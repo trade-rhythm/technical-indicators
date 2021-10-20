@@ -41,7 +41,7 @@ export default class KC implements Indicator<KCArgs, KCOutput> {
     };
   }
   nextBar(bar: High & Low & Close): KCOutput {
-    const typical = (bar.close + bar.high + bar.low) / 3.0;
+    const typical = (bar.c + bar.h + bar.l) / 3.0;
     const atr = this.atr.nextBar(bar);
     const avg = this.ema.next(typical);
     return {

@@ -1,17 +1,17 @@
 export interface Open {
-  open: number;
+  o: number;
 }
 export interface Close {
-  close: number;
+  c: number;
 }
 export interface High {
-  high: number;
+  h: number;
 }
 export interface Low {
-  low: number;
+  l: number;
 }
 export interface Volume {
-  volume: number;
+  v: number;
 }
 
 export type JSONDef<T = Record<string, unknown>> = T & {

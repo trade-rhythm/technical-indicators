@@ -3,7 +3,7 @@ import DMI from "./index";
 test("DMI calculates correctly", () => {
   const dmi = new DMI(5);
   [
-    // high, low, close, result
+    // h, l, c, result
     [82.15, 81.29, 81.59, null],
     [81.89, 80.64, 81.06, null],
     [83.03, 81.31, 82.87, null],
@@ -19,16 +19,16 @@ test("DMI calculates correctly", () => {
     [86.98, 85.76, 86.89, 81.37936868971823],
     [88.0, 87.17, 87.77, 87.37808356842487],
     [87.87, 87.01, 87.29, 76.24512106323728],
-  ].forEach(([high, low, close, result]) => {
-    expect(dmi.nextBar({ high, low, close })).toBe(result);
+  ].forEach(([h, l, c, result]) => {
+    expect(dmi.nextBar({ h, l, c })).toBe(result);
   });
 });
 
 test("DMI serializes/deserializes correctly", () => {
   const dmi = new DMI(3);
-  dmi.nextBar({ high: 3, low: 1, close: 2 });
-  dmi.nextBar({ high: 3, low: 1, close: 2 });
-  dmi.nextBar({ high: 3, low: 1, close: 2 });
+  dmi.nextBar({ h: 3, l: 1, c: 2 });
+  dmi.nextBar({ h: 3, l: 1, c: 2 });
+  dmi.nextBar({ h: 3, l: 1, c: 2 });
   const json = JSON.stringify(dmi);
   const newDMI = DMI.from(JSON.parse(json));
   expect(newDMI).toEqual(dmi);

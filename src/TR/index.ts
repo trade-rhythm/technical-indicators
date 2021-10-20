@@ -19,13 +19,13 @@ export default class TR implements Indicator<TRArgs> {
   }
   nextBar(bar: High & Low & Close): number {
     const prevPrev = this.prev;
-    this.prev = bar.close;
+    this.prev = bar.c;
     if (prevPrev === null) {
-      return bar.high - bar.low;
+      return bar.h - bar.l;
     } else {
-      const dist1 = bar.high - bar.low;
-      const dist2 = Math.abs(bar.high - prevPrev);
-      const dist3 = Math.abs(bar.low - prevPrev);
+      const dist1 = bar.h - bar.l;
+      const dist2 = Math.abs(bar.h - prevPrev);
+      const dist3 = Math.abs(bar.l - prevPrev);
       return Math.max(dist1, dist2, dist3);
     }
   }

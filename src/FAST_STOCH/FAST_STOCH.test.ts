@@ -22,8 +22,8 @@ test("FAST_STOCH calculates correctly with bar", () => {
     [35.0, 15.0, 19.0, 30.0], // min = 10, max = 40
     [30.0, 20.0, 25.0, 40.0], // min = 15, max = 40
     [35.0, 25.0, 30.0, 75.0], // min = 15, max = 35
-  ].forEach(([high, low, close, result]) => {
-    expect(fast_stoch.nextBar({ high, low, close })).toBe(result);
+  ].forEach(([h, l, c, result]) => {
+    expect(fast_stoch.nextBar({ h, l, c })).toBe(result);
   });
 });
 

@@ -40,7 +40,7 @@ export default class SMA implements Indicator<SMAArgs> {
     return this.sum / this.count;
   }
   nextBar(bar: Close): number {
-    return this.next(bar.close);
+    return this.next(bar.c);
   }
   reset(): void {
     this.sum = 0;
@@ -57,7 +57,7 @@ export default class SMA implements Indicator<SMAArgs> {
     };
   }
   static readonly key = "finance.tr.SMA";
-  static display({ period }: SMAArgs, value: string = "CLOSE"): string {
+  static display({ period }: SMAArgs, value = "CLOSE"): string {
     return `SMA(${period}, ${value})`;
   }
   static from({ period, window, sum, count }: SMAArgs): SMA {

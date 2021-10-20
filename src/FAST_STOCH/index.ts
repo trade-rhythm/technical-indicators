@@ -24,10 +24,10 @@ export default class FAST_STOCH implements Indicator<FAST_STOCHArgs> {
     return ((value - min) / (max - min)) * 100;
   }
   nextBar(bar: High & Low & Close): number {
-    const max = this.max.next(bar.high);
-    const min = this.min.next(bar.low);
+    const max = this.max.next(bar.h);
+    const min = this.min.next(bar.l);
     if (min === max) return 50;
-    return ((bar.close - min) / (max - min)) * 100;
+    return ((bar.c - min) / (max - min)) * 100;
   }
   reset(): void {
     this.min.reset();

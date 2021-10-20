@@ -26,7 +26,7 @@ export default class CCI implements Indicator<CCIArgs> {
     return (tp - sma) / (mad * 0.015);
   }
   nextBar(bar: High & Low & Close): number {
-    const tp = (bar.close + bar.high + bar.low) / 3;
+    const tp = (bar.c + bar.h + bar.l) / 3;
     const sma = this.sma.next(tp);
     const mad = this.mad.nextBar(bar);
     if (mad === 0) {

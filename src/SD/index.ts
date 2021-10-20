@@ -60,7 +60,7 @@ export default class SD implements Indicator<SDArgs> {
     return Math.sqrt(this.m2 / this.count);
   }
   nextBar(bar: Close): number {
-    return this.next(bar.close);
+    return this.next(bar.c);
   }
   reset(): void {
     this.count = 0;
@@ -79,7 +79,7 @@ export default class SD implements Indicator<SDArgs> {
     };
   }
   static readonly key = "finance.tr.SD";
-  static display({ period }: SDArgs, value: string = "CLOSE"): string {
+  static display({ period }: SDArgs, value = "CLOSE"): string {
     return `SD(${period}, ${value})`;
   }
   static from({ period, count, m, m2, window }: SDArgs): SD {

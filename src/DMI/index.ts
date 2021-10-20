@@ -74,8 +74,8 @@ export default class DMI implements Indicator<DMIArgs> {
     }
   }
   getDirection(bar: High & Low & Close): [number, number] {
-    let up = bar.high - this.prevBar.high;
-    let down = this.prevBar.low - bar.low;
+    let up = bar.h - this.prevBar.h;
+    let down = this.prevBar.l - bar.l;
     if (up < 0 || up < down) {
       up = 0;
     }

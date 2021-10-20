@@ -41,7 +41,7 @@ export default class PPO implements Indicator<PPOArgs, PPOOut> {
     };
   }
   nextBar(bar: Close): PPOOut {
-    return this.next(bar.close);
+    return this.next(bar.c);
   }
   reset(): void {
     this.fast.reset();
@@ -62,7 +62,7 @@ export default class PPO implements Indicator<PPOArgs, PPOOut> {
   static readonly key = "finance.tr.PPO";
   static display(
     { fast, slow, signal }: PPOArgs,
-    value: string = "CLOSE"
+    value = "CLOSE"
   ): string {
     return `PPO(${fast.period}, ${slow.period}, ${signal.period}, ${value})`;
   }

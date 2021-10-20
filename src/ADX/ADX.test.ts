@@ -3,7 +3,7 @@ import ADX from "./index";
 test("ADX calculates correctly", () => {
   const adx = new ADX(5);
   [
-    // high, low, close, result
+    // h, l, c, result
     [82.15, 81.29, 81.59, null],
     [81.89, 80.64, 81.06, null],
     [83.03, 81.31, 82.87, null],
@@ -19,16 +19,16 @@ test("ADX calculates correctly", () => {
     [86.98, 85.76, 86.89, 60.952506055817096],
     [88.0, 87.17, 87.77, 66.23762155833865],
     [87.87, 87.01, 87.29, 68.23912145931837],
-  ].forEach(([high, low, close, result]) => {
-    expect(adx.nextBar({ high, low, close })).toBe(result);
+  ].forEach(([h, l, c, result]) => {
+    expect(adx.nextBar({ h, l, c })).toBe(result);
   });
 });
 
 test("ADX serializes/deserializes correctly", () => {
   const adx = new ADX(3);
-  adx.nextBar({ high: 3, low: 1, close: 2 });
-  adx.nextBar({ high: 3, low: 1, close: 2 });
-  adx.nextBar({ high: 3, low: 1, close: 2 });
+  adx.nextBar({ h: 3, l: 1, c: 2 });
+  adx.nextBar({ h: 3, l: 1, c: 2 });
+  adx.nextBar({ h: 3, l: 1, c: 2 });
   const json = JSON.stringify(adx);
   const newADX = ADX.from(JSON.parse(json));
   expect(newADX).toEqual(adx);

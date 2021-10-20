@@ -45,7 +45,7 @@ export default class MACD implements Indicator<MACDArgs, MACDOutput> {
     };
   }
   nextBar(bar: Close): MACDOutput {
-    return this.next(bar.close);
+    return this.next(bar.c);
   }
   reset(): void {
     this.fast.reset();
@@ -63,7 +63,7 @@ export default class MACD implements Indicator<MACDArgs, MACDOutput> {
   static readonly key = "finance.tr.MACD";
   static display(
     { fast, slow, signal }: MACDArgs,
-    value: string = "CLOSE"
+    value = "CLOSE"
   ): string {
     return `MACD(${fast.period}, ${slow.period}, ${signal.period}, ${value})`;
   }
