@@ -1,7 +1,7 @@
 import ATR, { ATRArgs } from "../ATR";
 import MIN, { MINArgs } from "../MIN";
 import MAX, { MAXArgs } from "../MAX";
-import type { JSONDef, Indicator, High, Low, Close } from "../types";
+import { JSONDef, Indicator, High, Low, Close } from "../types";
 
 export interface CEArgs {
   period: number;
@@ -16,7 +16,7 @@ export interface Chandelier {
   short: number;
 }
 
-export default class CE implements Indicator<CEArgs, Chandelier> {
+export default class CE extends Indicator<CEArgs, Chandelier> {
   period: number;
   multiplier: number;
   atr: ATR;
@@ -29,6 +29,7 @@ export default class CE implements Indicator<CEArgs, Chandelier> {
     min = new MIN(period),
     max = new MAX(period)
   ) {
+    super();
     this.period = period;
     this.multiplier = multiplier;
     this.atr = atr;
@@ -74,6 +75,9 @@ export default class CE implements Indicator<CEArgs, Chandelier> {
     };
   }
   static readonly key = "finance.tr.CE";
+  static minBars({ period }: CEArgs): number {
+    return period;
+  }
   static display({ period, multiplier }: CEArgs): string {
     return `CE(${period}, ${multiplier})`;
   }

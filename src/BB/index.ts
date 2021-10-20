@@ -1,5 +1,5 @@
 import SD, { SDArgs } from "../SD";
-import type { JSONDef, Indicator, Close } from "../types";
+import { JSONDef, Indicator, Close } from "../types";
 
 export interface BBArgs {
   period: number;
@@ -13,11 +13,12 @@ export interface Band {
   lower: number;
 }
 
-export default class BB implements Indicator<BBArgs, Band> {
+export default class BB extends Indicator<BBArgs, Band> {
   period: number;
   multiplier: number;
   sd: SD;
   constructor(period = 9, multiplier = 2, sd = new SD(period)) {
+    super();
     this.period = period;
     this.multiplier = multiplier;
     this.sd = sd;
@@ -48,6 +49,9 @@ export default class BB implements Indicator<BBArgs, Band> {
     };
   }
   static readonly key = "finance.tr.BB";
+  static minBars({ period, sd }: BBArgs): number {
+    return Math.max(period, SD.minBars(sd))
+  }
   static display(
     { period, multiplier }: BBArgs,
     value = "CLOSE"

@@ -24,16 +24,15 @@ import SLOW_STOCH from "./SLOW_STOCH";
 import SMA from "./SMA";
 import TR from "./TR";
 import Window from "./Window";
-import { SerializableStatic } from "./types";
+import { SerializableStatic, StaticIndicator } from "./types";
 
-const collection = {
+const indicators = {
   [ADX.key]: ADX,
   [AO.key]: AO,
   [ATR.key]: ATR,
   [BB.key]: BB,
   [CCI.key]: CCI,
   [CE.key]: CE,
-  [Cross.key]: Cross,
   [DMI.key]: DMI,
   [ER.key]: ER,
   [EMA.key]: EMA,
@@ -52,7 +51,6 @@ const collection = {
   [SLOW_STOCH.key]: SLOW_STOCH,
   [SMA.key]: SMA,
   [TR.key]: TR,
-  [Window.key]: Window,
 } as const;
 
 const parse = (json: string): unknown => {
@@ -65,10 +63,14 @@ const parse = (json: string): unknown => {
   });
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const __assertStatic: Record<keyof typeof collection, SerializableStatic> =
-  collection;
+const _assertIndicator: Record<keyof typeof indicators, StaticIndicator> = indicators;
+
+const collection = Object.assign(indicators, {
+  [Cross.key]: Cross,
+  [Window.key]: Window,
+} as const);
+
+const _assertStatic: Record<keyof typeof collection, SerializableStatic> = collection;
 
 export * from "./types";
 export * from "./utils";

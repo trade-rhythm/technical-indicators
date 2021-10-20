@@ -1,5 +1,5 @@
 import SMA, { SMAArgs } from "../SMA";
-import type { JSONDef, Indicator, High, Low } from "../types";
+import { JSONDef, Indicator, High, Low } from "../types";
 import { NextNotImplemented } from "../utils";
 
 export interface AOArgs {
@@ -7,10 +7,11 @@ export interface AOArgs {
   slow: SMAArgs;
 }
 
-export default class AO implements Indicator<AOArgs> {
+export default class AO extends Indicator<AOArgs> {
   fast: SMA;
   slow: SMA;
   constructor(fast: number | SMA = 5, slow: number | SMA = 34) {
+    super();
     this.fast = typeof fast === "number" ? new SMA(fast) : fast;
     this.slow = typeof slow === "number" ? new SMA(slow) : slow;
   }
@@ -37,6 +38,9 @@ export default class AO implements Indicator<AOArgs> {
   }
   static display(): string {
     return `AO()`;
+  }
+  static minBars({ fast, slow }: AOArgs): number {
+    return Math.max(SMA.minBars(fast), SMA.minBars(slow));
   }
   static readonly key = "finance.tr.AO";
   static from({ fast, slow }: AOArgs): AO {

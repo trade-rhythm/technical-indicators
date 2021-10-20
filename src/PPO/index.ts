@@ -1,5 +1,5 @@
 import EMA, { EMAArgs } from "../EMA";
-import type { JSONDef, Indicator, Close } from "../types";
+import { JSONDef, Indicator, Close } from "../types";
 
 export interface PPOArgs {
   fast: EMAArgs;
@@ -13,7 +13,7 @@ export interface PPOOut {
   histogram: number;
 }
 
-export default class PPO implements Indicator<PPOArgs, PPOOut> {
+export default class PPO extends Indicator<PPOArgs, PPOOut> {
   fast: EMA;
   slow: EMA;
   signal: EMA;
@@ -22,6 +22,7 @@ export default class PPO implements Indicator<PPOArgs, PPOOut> {
     slow: number | EMA = 26,
     signal: number | EMA = 9
   ) {
+    super();
     this.fast = typeof fast === "number" ? new EMA(fast) : fast;
     this.slow = typeof slow === "number" ? new EMA(slow) : slow;
     this.signal = typeof signal === "number" ? new EMA(signal) : signal;
@@ -60,6 +61,9 @@ export default class PPO implements Indicator<PPOArgs, PPOOut> {
     };
   }
   static readonly key = "finance.tr.PPO";
+  static minBars({ fast, slow, signal }: PPOArgs): number {
+    return Math.max(EMA.minBars(fast), EMA.minBars(slow), EMA.minBars(signal))
+  }
   static display(
     { fast, slow, signal }: PPOArgs,
     value = "CLOSE"

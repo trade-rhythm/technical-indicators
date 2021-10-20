@@ -1,7 +1,7 @@
 import Window from "../Window";
 import { lt } from "../utils";
 import type { WindowArgs } from "../Window";
-import type { JSONDef, Indicator, Close } from "../types";
+import { JSONDef, Indicator, Close } from "../types";
 
 export interface RSIArgs {
   period: number;
@@ -9,11 +9,12 @@ export interface RSIArgs {
   window: WindowArgs<number>;
 }
 
-export default class RSI implements Indicator<RSIArgs> {
+export default class RSI extends Indicator<RSIArgs> {
   period: number;
   index: number;
   window: Window;
   constructor(period: number, index = 0, window = new Window(period + 1)) {
+    super();
     this.period = period;
     this.index = index;
     this.window = window;
@@ -57,6 +58,9 @@ export default class RSI implements Indicator<RSIArgs> {
     };
   }
   static readonly key = "finance.tr.RSI";
+  static minBars({ period }: RSIArgs): number {
+    return period;
+  }
   static display({ period }: RSIArgs, value = "CLOSE"): string {
     return `RSI(${period}, ${value})`;
   }

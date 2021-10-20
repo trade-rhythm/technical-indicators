@@ -1,5 +1,5 @@
 import Window, { WindowArgs } from "../Window";
-import type { JSONDef, Indicator, Close } from "../types";
+import { JSONDef, Indicator, Close } from "../types";
 
 export interface ERArgs {
   period: number;
@@ -7,11 +7,12 @@ export interface ERArgs {
   window: WindowArgs<number>;
 }
 
-export default class ER implements Indicator<ERArgs> {
+export default class ER extends Indicator<ERArgs> {
   period: number;
   count: number;
   window: Window<number>;
   constructor(period = 14, count = 0, window = new Window(period)) {
+    super();
     this.period = period;
     this.count = count;
     this.window = window;
@@ -54,6 +55,9 @@ export default class ER implements Indicator<ERArgs> {
     };
   }
   static readonly key = "finance.tr.ER";
+  static minBars({ period }: ERArgs): number {
+    return period;
+  }
   static display({ period }: ERArgs, value = "CLOSE"): string {
     return `ER(${period}, ${value})`;
   }

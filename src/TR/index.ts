@@ -1,12 +1,13 @@
-import type { JSONDef, Indicator, High, Low, Close } from "../types";
+import { JSONDef, Indicator, High, Low, Close } from "../types";
 
 export interface TRArgs {
   prev: number;
 }
 
-export default class TR implements Indicator<TRArgs> {
+export default class TR extends Indicator<TRArgs> {
   prev: number | null;
   constructor(prev: number | null = null) {
+    super();
     this.prev = typeof prev === "number" ? prev : null;
   }
   next(value: number): number | null {
@@ -39,6 +40,9 @@ export default class TR implements Indicator<TRArgs> {
     return { $type: TR.key, prev: this.prev };
   }
   static readonly key = "finance.tr.TR";
+  static minBars(): number {
+    return 0;
+  }
   static display(): string {
     return `TR()`;
   }

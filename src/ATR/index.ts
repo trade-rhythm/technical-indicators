@@ -1,16 +1,17 @@
 import EMA, { EMAArgs } from "../EMA";
 import TR, { TRArgs } from "../TR";
-import type { JSONDef, Indicator, High, Low, Close } from "../types";
+import { JSONDef, Indicator, High, Low, Close } from "../types";
 
 export interface ATRArgs {
   ema: EMAArgs;
   tr: TRArgs;
 }
 
-export default class ATR implements Indicator<ATRArgs> {
+export default class ATR extends Indicator<ATRArgs> {
   ema: EMA;
   tr: TR;
   constructor(ema: number | EMA = 14, tr: TR = new TR()) {
+    super();
     this.ema = typeof ema === "number" ? new EMA(ema) : ema;
     this.tr = tr;
   }
@@ -35,6 +36,9 @@ export default class ATR implements Indicator<ATRArgs> {
     };
   }
   static readonly key = "finance.tr.ATR";
+  static minBars({ ema }: ATRArgs): number {
+    return EMA.minBars(ema);
+  }
   static display({ ema }: ATRArgs): string {
     return `ATR(${ema.period})`;
   }

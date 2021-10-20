@@ -1,6 +1,6 @@
 import EMA from "../EMA";
 import type { EMAArgs } from "../EMA";
-import type { JSONDef, Indicator, Close } from "../types";
+import { JSONDef, Indicator, Close } from "../types";
 
 export interface MACDArgs {
   fast: EMAArgs;
@@ -14,7 +14,7 @@ export interface MACDOutput {
   histogram: number;
 }
 
-export default class MACD implements Indicator<MACDArgs, MACDOutput> {
+export default class MACD extends Indicator<MACDArgs, MACDOutput> {
   fast: EMA;
   slow: EMA;
   signal: EMA;
@@ -23,6 +23,7 @@ export default class MACD implements Indicator<MACDArgs, MACDOutput> {
     slow: number | EMA = 26,
     signal: number | EMA = 9
   ) {
+    super();
     this.fast = typeof fast === "number" ? new EMA(fast) : fast;
     this.slow = typeof slow === "number" ? new EMA(slow) : slow;
     this.signal = typeof signal === "number" ? new EMA(signal) : signal;
@@ -61,6 +62,9 @@ export default class MACD implements Indicator<MACDArgs, MACDOutput> {
     };
   }
   static readonly key = "finance.tr.MACD";
+  static minBars({ fast, slow, signal }: MACDArgs): number {
+    return Math.max(EMA.minBars(fast), EMA.minBars(slow), EMA.minBars(signal))
+  }
   static display(
     { fast, slow, signal }: MACDArgs,
     value = "CLOSE"

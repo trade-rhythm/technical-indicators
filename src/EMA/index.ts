@@ -1,4 +1,4 @@
-import type { JSONDef, Indicator, Close } from "../types";
+import { JSONDef, Indicator, Close } from "../types";
 
 export interface EMAArgs {
   period: number;
@@ -6,7 +6,7 @@ export interface EMAArgs {
   current: number;
 }
 
-export default class EMA implements Indicator<EMAArgs> {
+export default class EMA extends Indicator<EMAArgs> {
   period: number;
   k: number;
   current: number | null;
@@ -15,6 +15,7 @@ export default class EMA implements Indicator<EMAArgs> {
     k: number = 2 / (period + 1),
     current: number | null = null
   ) {
+    super();
     this.period = period;
     this.k = k;
     this.current = current;
@@ -45,6 +46,9 @@ export default class EMA implements Indicator<EMAArgs> {
     };
   }
   static readonly key = "finance.tr.EMA";
+  static minBars({ period }: EMAArgs): number {
+    return period;
+  }
   static display({ period }: EMAArgs, value = "CLOSE"): string {
     return `EMA(${period}, ${value})`;
   }

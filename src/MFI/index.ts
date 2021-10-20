@@ -1,4 +1,4 @@
-import type { JSONDef, Indicator, High, Low, Close, Volume } from "../types";
+import { JSONDef, Indicator, High, Low, Close, Volume } from "../types";
 import { NextNotImplemented } from "../utils";
 
 export interface MFIArgs {
@@ -11,7 +11,7 @@ export interface MFIArgs {
   queue: number[];
 }
 
-export default class MFI implements Indicator<MFIArgs> {
+export default class MFI extends Indicator<MFIArgs> {
   period: number;
   index: number;
   count: number;
@@ -28,6 +28,7 @@ export default class MFI implements Indicator<MFIArgs> {
     totalNegative = 0,
     queue = new Array(period).fill(0)
   ) {
+    super();
     this.period = period;
     this.index = index;
     this.count = count;
@@ -100,6 +101,9 @@ export default class MFI implements Indicator<MFIArgs> {
     };
   }
   static readonly key = "finance.tr.MFI";
+  static minBars({ period }: MFIArgs): number {
+    return period;
+  }
   static display({ period }: MFIArgs): string {
     return `MFI(${period})`;
   }

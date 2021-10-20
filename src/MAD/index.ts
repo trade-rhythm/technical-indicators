@@ -1,5 +1,5 @@
 import Window, { WindowArgs } from "../Window";
-import type { JSONDef, Indicator, Close } from "../types";
+import { JSONDef, Indicator, Close } from "../types";
 
 export interface MADArgs {
   period: number;
@@ -8,12 +8,13 @@ export interface MADArgs {
   window: WindowArgs<number>;
 }
 
-export default class MAD implements Indicator<MADArgs> {
+export default class MAD extends Indicator<MADArgs> {
   period: number;
   sum: number;
   count: number;
   window: Window<number>;
   constructor(period = 9, sum = 0, count = 0, window = new Window(period)) {
+    super();
     this.period = period;
     this.sum = sum;
     this.count = count;
@@ -60,6 +61,9 @@ export default class MAD implements Indicator<MADArgs> {
     };
   }
   static readonly key = "finance.tr.MAD";
+  static minBars({ period }: MADArgs): number {
+    return period;
+  }
   static display({ period }: MADArgs, value = "CLOSE"): string {
     return `MAD(${period}, ${value})`;
   }

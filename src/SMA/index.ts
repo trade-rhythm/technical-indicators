@@ -1,6 +1,6 @@
 import Window from "../Window";
 import type { WindowArgs } from "../Window";
-import type { JSONDef, Indicator, Close } from "../types";
+import { JSONDef, Indicator, Close } from "../types";
 
 export interface SMAArgs {
   period: number;
@@ -9,7 +9,7 @@ export interface SMAArgs {
   count: number;
 }
 
-export default class SMA implements Indicator<SMAArgs> {
+export default class SMA extends Indicator<SMAArgs> {
   period: number;
   window: Window<number>;
   sum: number;
@@ -20,6 +20,7 @@ export default class SMA implements Indicator<SMAArgs> {
     sum = 0,
     count = 0
   ) {
+    super();
     this.period = period;
     this.window = window;
     this.sum = sum;
@@ -57,6 +58,9 @@ export default class SMA implements Indicator<SMAArgs> {
     };
   }
   static readonly key = "finance.tr.SMA";
+  static minBars({ period }: SMAArgs): number {
+    return period;
+  }
   static display({ period }: SMAArgs, value = "CLOSE"): string {
     return `SMA(${period}, ${value})`;
   }

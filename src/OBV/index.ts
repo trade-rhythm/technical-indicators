@@ -1,4 +1,4 @@
-import type { JSONDef, Indicator, Close, Volume } from "../types";
+import { JSONDef, Indicator, Close, Volume } from "../types";
 import { NextNotImplemented } from "../utils";
 
 export interface OBVArgs {
@@ -6,10 +6,11 @@ export interface OBVArgs {
   prevClose: number;
 }
 
-export default class OBV implements Indicator<OBVArgs> {
+export default class OBV extends Indicator<OBVArgs> {
   obv: number;
   prevClose: number;
   constructor(obv = 0, prevClose = 0) {
+    super();
     this.obv = obv;
     this.prevClose = prevClose;
   }
@@ -40,6 +41,9 @@ export default class OBV implements Indicator<OBVArgs> {
     };
   }
   static readonly key = "finance.tr.OBV";
+  static minBars(): number {
+    return 0;
+  }
   static display(): string {
     return `OBV()`;
   }

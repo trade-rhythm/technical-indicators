@@ -1,5 +1,5 @@
 import TR, { TRArgs } from "../TR";
-import type { JSONDef, Indicator, High, Low, Close } from "../types";
+import { JSONDef, Indicator, High, Low, Close } from "../types";
 import { NextNotImplemented } from "../utils";
 
 export interface DMIArgs {
@@ -13,7 +13,7 @@ export interface DMIArgs {
   prevBar?: High & Low & Close;
 }
 
-export default class DMI implements Indicator<DMIArgs> {
+export default class DMI extends Indicator<DMIArgs> {
   period: number;
   tr: TR;
   k: number;
@@ -32,6 +32,7 @@ export default class DMI implements Indicator<DMIArgs> {
     downSum = 0,
     prevBar: High & Low & Close = null
   ) {
+    super();
     this.period = period;
     this.tr = tr;
     this.k = k;
@@ -112,6 +113,9 @@ export default class DMI implements Indicator<DMIArgs> {
     };
   }
   static readonly key = "finance.tr.DMI";
+  static minBars({ period }: DMIArgs): number {
+    return period;
+  }
   static display({ period }: DMIArgs): string {
     return `TR(${period})`;
   }

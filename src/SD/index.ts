@@ -1,6 +1,6 @@
 import { lt } from "../utils";
 import Window, { WindowArgs } from "../Window";
-import type { JSONDef, Indicator, Close } from "../types";
+import { JSONDef, Indicator, Close } from "../types";
 
 export interface SDArgs {
   period: number;
@@ -10,7 +10,7 @@ export interface SDArgs {
   window: WindowArgs<number>;
 }
 
-export default class SD implements Indicator<SDArgs> {
+export default class SD extends Indicator<SDArgs> {
   period: number;
   count: number;
   m: number;
@@ -23,6 +23,7 @@ export default class SD implements Indicator<SDArgs> {
     m2 = 0,
     window = new Window(period)
   ) {
+    super();
     this.period = period;
     this.count = count;
     this.m = m;
@@ -79,6 +80,9 @@ export default class SD implements Indicator<SDArgs> {
     };
   }
   static readonly key = "finance.tr.SD";
+  static minBars({ period }: SDArgs): number {
+    return period;
+  }
   static display({ period }: SDArgs, value = "CLOSE"): string {
     return `SD(${period}, ${value})`;
   }

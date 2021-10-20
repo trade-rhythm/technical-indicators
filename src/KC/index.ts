@@ -1,6 +1,6 @@
 import ATR, { ATRArgs } from "../ATR";
 import EMA, { EMAArgs } from "../EMA";
-import type { JSONDef, Indicator, High, Low, Close } from "../types";
+import { JSONDef, Indicator, High, Low, Close } from "../types";
 
 export interface KCArgs {
   period: number;
@@ -15,7 +15,7 @@ interface KCOutput {
   lower: number;
 }
 
-export default class KC implements Indicator<KCArgs, KCOutput> {
+export default class KC extends Indicator<KCArgs, KCOutput> {
   period: number;
   multiplier: number;
   ema: EMA;
@@ -26,6 +26,7 @@ export default class KC implements Indicator<KCArgs, KCOutput> {
     atr = new ATR(period),
     ema = new EMA(period)
   ) {
+    super();
     this.period = period;
     this.multiplier = multiplier;
     this.atr = atr;
@@ -67,6 +68,9 @@ export default class KC implements Indicator<KCArgs, KCOutput> {
     };
   }
   static readonly key = "finance.tr.KC";
+  static minBars({ period }: KCArgs): number {
+    return period;
+  }
   static display({ period, multiplier }: KCArgs): string {
     return `KC(${period}, ${multiplier})`;
   }

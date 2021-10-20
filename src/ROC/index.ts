@@ -1,5 +1,5 @@
 import Window, { WindowArgs } from "../Window";
-import type { JSONDef, Indicator, Close } from "../types";
+import { JSONDef, Indicator, Close } from "../types";
 
 export interface ROCArgs {
   period: number;
@@ -7,11 +7,12 @@ export interface ROCArgs {
   window: WindowArgs<number>;
 }
 
-export default class ROC implements Indicator<ROCArgs> {
+export default class ROC extends Indicator<ROCArgs> {
   period: number;
   count: number;
   window: Window<number>;
   constructor(period = 9, count = 0, window = new Window(period)) {
+    super();
     this.period = period;
     this.count = count;
     this.window = window;
@@ -50,6 +51,9 @@ export default class ROC implements Indicator<ROCArgs> {
     };
   }
   static readonly key = "finance.tr.ROC";
+  static minBars({ period }: ROCArgs): number {
+    return period;
+  }
   static display({ period }: ROCArgs, value = "CLOSE"): string {
     return `ROC(${period}, ${value})`;
   }

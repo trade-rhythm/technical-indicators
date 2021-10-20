@@ -1,6 +1,6 @@
 import Window, { WindowArgs } from "../Window";
 import DMI, { DMIArgs } from "../DMI";
-import type { JSONDef, Indicator, High, Low, Close } from "../types";
+import { JSONDef, Indicator, High, Low, Close } from "../types";
 import { NextNotImplemented } from "../utils";
 
 export interface ADXArgs {
@@ -12,7 +12,7 @@ export interface ADXArgs {
   count: number;
 }
 
-export default class ADX implements Indicator<ADXArgs> {
+export default class ADX extends Indicator<ADXArgs> {
   period: number;
   dmi: DMI;
   sum: number;
@@ -27,6 +27,7 @@ export default class ADX implements Indicator<ADXArgs> {
     prev: number | null = null,
     count = 0
   ) {
+    super();
     this.period = period;
     this.dmi = dmi;
     this.sum = sum;
@@ -76,6 +77,9 @@ export default class ADX implements Indicator<ADXArgs> {
   }
   static display({ period }: ADXArgs): string {
     return `ADX(${period})`;
+  }
+  static minBars({ period }: ADXArgs): number {
+    return period * 2;
   }
   static readonly key = "finance.tr.ADX";
   static from({ period, dmi, sum, window, prev, count }: ADXArgs): ADX {

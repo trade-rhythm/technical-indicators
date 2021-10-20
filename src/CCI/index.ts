@@ -1,17 +1,18 @@
 import SMA, { SMAArgs } from "../SMA";
 import MAD, { MADArgs } from "../MAD";
-import type { JSONDef, Indicator, High, Low, Close } from "../types";
+import { JSONDef, Indicator, High, Low, Close } from "../types";
 
 export interface CCIArgs {
   sma: SMAArgs;
   mad: MADArgs;
 }
 
-export default class CCI implements Indicator<CCIArgs> {
+export default class CCI extends Indicator<CCIArgs> {
   period: number;
   sma: SMA;
   mad: MAD;
   constructor(period = 20, sma = new SMA(period), mad = new MAD(period)) {
+    super();
     this.sma = sma;
     this.mad = mad;
   }
@@ -50,6 +51,9 @@ export default class CCI implements Indicator<CCIArgs> {
     };
   }
   static readonly key = "finance.tr.CCI";
+  static minBars({ sma }: CCIArgs): number {
+    return SMA.minBars(sma);
+  }
   static display({ sma }: CCIArgs): string {
     return `CCI(${sma.period})`;
   }

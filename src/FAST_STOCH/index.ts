@@ -1,6 +1,6 @@
 import MIN, { MINArgs } from "../MIN";
 import MAX, { MAXArgs } from "../MAX";
-import type { JSONDef, Indicator, High, Low, Close } from "../types";
+import { JSONDef, Indicator, High, Low, Close } from "../types";
 
 export interface FAST_STOCHArgs {
   period: number;
@@ -8,11 +8,12 @@ export interface FAST_STOCHArgs {
   max: MAXArgs;
 }
 
-export default class FAST_STOCH implements Indicator<FAST_STOCHArgs> {
+export default class FAST_STOCH extends Indicator<FAST_STOCHArgs> {
   period: number;
   min: MIN;
   max: MAX;
   constructor(period = 14, min = new MIN(period), max = new MAX(period)) {
+    super();
     this.period = period;
     this.min = min;
     this.max = max;
@@ -45,6 +46,9 @@ export default class FAST_STOCH implements Indicator<FAST_STOCHArgs> {
     };
   }
   static readonly key = "finance.tr.FAST_STOCH";
+  static minBars({ period }: FAST_STOCHArgs): number {
+    return period;
+  }
   static display({ period }: FAST_STOCHArgs): string {
     return `FAST_STOCH(${period})`;
   }
