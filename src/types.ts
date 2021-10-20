@@ -78,7 +78,8 @@ export interface SerializableStatic<T = unknown> {
   from(props: T): Serializable<T>;
 }
 
-export interface StaticIndicator<T = unknown, V = number, VB = V> {
+export interface StaticIndicator<T = unknown, V = any, VB = V> {
+  new (...args: any[]): Indicator<T, V, VB>;
   minBars(props: T): number;
   init(props: T, bars: number[]): [Indicator<T, V, VB>, V];
   initBar(props: T, bars: Bar[]): [Indicator<T, V, VB>, VB];
